@@ -138,6 +138,52 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 
 /* ── CLIENTS TABLE ───────────────────────────────── */
 .clients-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-bottom: 16px; }
+/* ── MODAL ───────────────────────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; animation: fadeIn 0.18s ease; }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 24px 28px;
+  width: 100%;
+  max-width: 420px;
+  animation: slideUp 0.2s ease;
+}
+@keyframes slideUp { from { transform:translateY(16px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.modal-title { font-size: 16px; font-weight: 600; color: var(--text); }
+.modal-close {
+  width: 28px; height: 28px; border-radius: 6px;
+  border: 1px solid var(--border2); background: transparent;
+  color: var(--text2); font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.modal-close:hover { background: var(--bg4); }
+.modal-total {
+  font-size: 12px; color: var(--text3); margin-bottom: 16px;
+  padding-bottom: 14px; border-bottom: 1px solid var(--border);
+}
+.modal-total span { font-family: var(--mono); color: var(--text2); font-size: 13px; }
+.modal-state-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.modal-state-row:last-child { margin-bottom: 0; }
+.modal-state-name { font-size: 13px; color: var(--text2); width: 160px; flex-shrink: 0; }
+.modal-bar-bg { flex: 1; height: 8px; background: var(--bg4); border-radius: 4px; overflow: hidden; }
+.modal-bar-fg { height: 100%; border-radius: 4px; }
+.modal-state-num { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); width: 24px; text-align: right; flex-shrink: 0; }
+.client-card { cursor: pointer; transition: border-color 0.15s, transform 0.15s; }
+.client-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+
 .client-card {
   background: var(--bg3); border: 1px solid var(--border);
   border-radius: var(--r-sm); padding: 14px 16px;
@@ -150,6 +196,56 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .client-region-tag {
   font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 500; align-self: flex-start;
 }
+
+/* ── MODAL ───────────────────────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; animation: fadeInBg 0.18s ease; }
+@keyframes fadeInBg { from { opacity:0; } to { opacity:1; } }
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 24px 28px;
+  width: 100%;
+  max-width: 420px;
+  animation: slideUp 0.2s ease;
+}
+@keyframes slideUp { from { transform:translateY(16px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.modal-title { font-size: 16px; font-weight: 600; color: var(--text); }
+.modal-close {
+  width: 28px; height: 28px; border-radius: 6px;
+  border: 1px solid var(--border2); background: transparent;
+  color: var(--text2); font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1; transition: background 0.15s;
+}
+.modal-close:hover { background: var(--bg4); color: var(--text); }
+.modal-region-tag {
+  font-size: 11px; padding: 3px 10px; border-radius: 999px;
+  font-weight: 500; margin-bottom: 16px; display: inline-block;
+}
+.modal-total {
+  font-size: 12px; color: var(--text3); margin-bottom: 16px;
+  padding-bottom: 14px; border-bottom: 1px solid var(--border);
+}
+.modal-total span { font-family: var(--mono); color: var(--text); font-size: 15px; font-weight: 600; }
+.modal-state-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.modal-state-row:last-child { margin-bottom: 0; }
+.modal-state-name { font-size: 13px; color: var(--text2); width: 160px; flex-shrink: 0; }
+.modal-bar-bg { flex: 1; height: 8px; background: var(--bg4); border-radius: 4px; overflow: hidden; }
+.modal-bar-fg { height: 100%; border-radius: 4px; }
+.modal-state-num { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); width: 24px; text-align: right; flex-shrink: 0; }
+.client-card-hint { font-size: 10px; color: var(--text3); margin-top: 2px; }
+.client-card:hover .client-card-hint { color: var(--accent); }
 
 /* ── SCROLLBAR ───────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -254,6 +350,19 @@ footer {
 
 </main>
 
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-client-name">—</div>
+      <button class="modal-close" onclick="closeModalDirect()">&#x2715;</button>
+    </div>
+    <span class="modal-region-tag" id="modal-region-tag"></span>
+    <div class="modal-total">Total de unidades: <span id="modal-total">—</span></div>
+    <div id="modal-states"></div>
+  </div>
+</div>
+
 <footer>
   Gestão à Vista &nbsp;·&nbsp; Dados extraídos de Gestão_a_Vista_Projetos.xlsx
 </footer>
@@ -277,24 +386,42 @@ const states = [
 ];
 
 const clients = [
-  {name:'TRAPÉZIO',   state:'PR / SC / SP / RS',      units:60, pdv:null, region:'Sul'},
-  {name:'SONHO MEU',  state:'Santa Catarina',          units:38, pdv:null, region:'Sul'},
-  {name:'JBRETAS',    state:'Minas Gerais',            units:38, pdv:null, region:'Sudeste'},
-  {name:'MIRIAN',     state:'MS / MT / PA / RO',      units:34, pdv:null, region:'Centro-Oeste'},
-  {name:'VALVIC',     state:'Rio Grande do Sul',       units:14, pdv:null, region:'Sul'},
-  {name:'DÉCIO',      state:'GO / MG / BA / SP / TO', units:15, pdv:null, region:'Centro-Oeste'},
-  {name:'COTRIEL',    state:'Rio Grande do Sul',       units: 5, pdv:null, region:'Sul'},
-  {name:'COOPERMOTA', state:'São Paulo',               units: 5, pdv:null, region:'Sudeste'},
-  {name:'LARCO',      state:'Bahia',                   units: 5, pdv:  2,  region:'Nordeste'},
-  {name:'NICOLLETTI', state:'Maranhão',                units: 5, pdv:null, region:'Nordeste'},
-  {name:'LIMA',       state:'Maranhão',                units: 4, pdv: 16,  region:'Nordeste'},
-  {name:'CAPUL',      state:'Minas Gerais',            units: 2, pdv:null, region:'Sudeste'},
-  {name:'SANPETRO',   state:'Minas Gerais',            units: 2, pdv:null, region:'Sudeste'},
-  {name:'COAPIL',     state:'Goiás',                   units: 2, pdv:  0,  region:'Centro-Oeste'},
-  {name:'NUTRIZA',    state:'Goiás',                   units: 1, pdv:  2,  region:'Centro-Oeste'},
-  {name:'AGROVERDE',  state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste'},
-  {name:'COOPEL',     state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste'},
-  {name:'COOPRATA',   state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste'},
+  {name:'TRAPÉZIO',   state:'PR / SC / SP / RS',      units:60, pdv:null, region:'Sul',
+   stateDetails:[{s:'Paraná',u:29},{s:'Rio Grande do Sul',u:22},{s:'Santa Catarina',u:5},{s:'São Paulo',u:4}]},
+  {name:'SONHO MEU',  state:'Santa Catarina',          units:38, pdv:null, region:'Sul',
+   stateDetails:[{s:'Santa Catarina',u:38}]},
+  {name:'JBRETAS',    state:'Minas Gerais',            units:38, pdv:null, region:'Sudeste',
+   stateDetails:[{s:'Minas Gerais',u:38}]},
+  {name:'MIRIAN',     state:'MS / MT / PA / RO',      units:34, pdv:null, region:'Centro-Oeste',
+   stateDetails:[{s:'Mato Grosso',u:13},{s:'Rondônia',u:12},{s:'Mato Grosso do Sul',u:5},{s:'Pará',u:4}]},
+  {name:'VALVIC',     state:'Rio Grande do Sul',       units:14, pdv:null, region:'Sul',
+   stateDetails:[{s:'Rio Grande do Sul',u:14}]},
+  {name:'DÉCIO',      state:'GO / MG / BA / SP / TO', units:15, pdv:null, region:'Centro-Oeste',
+   stateDetails:[{s:'Minas Gerais',u:8},{s:'Goiás',u:4},{s:'Bahia',u:1},{s:'São Paulo',u:1},{s:'Tocantins',u:1}]},
+  {name:'COTRIEL',    state:'Rio Grande do Sul',       units: 5, pdv:null, region:'Sul',
+   stateDetails:[{s:'Rio Grande do Sul',u:5}]},
+  {name:'COOPERMOTA', state:'São Paulo',               units: 5, pdv:null, region:'Sudeste',
+   stateDetails:[{s:'São Paulo',u:5}]},
+  {name:'LARCO',      state:'Bahia',                   units: 5, pdv:  2,  region:'Nordeste',
+   stateDetails:[{s:'Bahia',u:5}]},
+  {name:'NICOLLETTI', state:'Maranhão',                units: 5, pdv:null, region:'Nordeste',
+   stateDetails:[{s:'Maranhão',u:5}]},
+  {name:'LIMA',       state:'Maranhão',                units: 4, pdv: 16,  region:'Nordeste',
+   stateDetails:[{s:'Maranhão',u:4}]},
+  {name:'CAPUL',      state:'Minas Gerais',            units: 2, pdv:null, region:'Sudeste',
+   stateDetails:[{s:'Minas Gerais',u:2}]},
+  {name:'SANPETRO',   state:'Minas Gerais',            units: 2, pdv:null, region:'Sudeste',
+   stateDetails:[{s:'Minas Gerais',u:2}]},
+  {name:'COAPIL',     state:'Goiás',                   units: 2, pdv:  0,  region:'Centro-Oeste',
+   stateDetails:[{s:'Goiás',u:2}]},
+  {name:'NUTRIZA',    state:'Goiás',                   units: 1, pdv:  2,  region:'Centro-Oeste',
+   stateDetails:[{s:'Goiás',u:1}]},
+  {name:'AGROVERDE',  state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste',
+   stateDetails:[{s:'Minas Gerais',u:1}]},
+  {name:'COOPEL',     state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste',
+   stateDetails:[{s:'Minas Gerais',u:1}]},
+  {name:'COOPRATA',   state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste',
+   stateDetails:[{s:'Minas Gerais',u:1}]},
 ];
 
 const rDef = {
@@ -383,24 +510,68 @@ new Chart(document.getElementById('chartBar'), {
 const cgEl = document.getElementById('clients-grid');
 clients.forEach(c => {
   const rd = rDef[c.region];
-  cgEl.innerHTML += `
-    <div class="client-card">
-      <div class="client-card-name">${c.name}</div>
-      <span class="client-region-tag" style="background:${rd.bg};color:${rd.text};">${c.region}</span>
-      <div class="client-card-row">
-        <span class="client-card-label">Estado(s)</span>
-        <span class="client-card-val">${c.state}</span>
-      </div>
-      <div class="client-card-row">
-        <span class="client-card-label">Unidades</span>
-        <span class="client-card-val" style="color:var(--text);">${c.units}</span>
-      </div>
-      ${c.pdv !== null ? `<div class="client-card-row">
-        <span class="client-card-label">PDVs fixos</span>
-        <span class="client-card-val">${c.pdv}</span>
-      </div>` : ''}
-    </div>`;
+  const div = document.createElement('div');
+  div.className = 'client-card';
+  div.innerHTML = `
+    <div class="client-card-name">${c.name}</div>
+    <span class="client-region-tag" style="background:${rd.bg};color:${rd.text};">${c.region}</span>
+    <div class="client-card-row">
+      <span class="client-card-label">Estado(s)</span>
+      <span class="client-card-val">${c.state}</span>
+    </div>
+    <div class="client-card-row">
+      <span class="client-card-label">Unidades</span>
+      <span class="client-card-val" style="color:var(--text);">${c.units}</span>
+    </div>
+    ${c.pdv !== null ? `<div class="client-card-row">
+      <span class="client-card-label">PDVs fixos</span>
+      <span class="client-card-val">${c.pdv}</span>
+    </div>` : ''}
+    <div class="client-card-hint">clique para ver por estado</div>`;
+  div.addEventListener('click', () => openModal(c));
+  cgEl.appendChild(div);
 });
+
+/* ── MODAL ── */
+function openModal(c) {
+  const rd = rDef[c.region];
+  document.getElementById('modal-client-name').textContent = c.name;
+  document.getElementById('modal-total').textContent = c.units;
+  const tag = document.getElementById('modal-region-tag');
+  tag.textContent = c.region;
+  tag.style.background = rd.bg;
+  tag.style.color = rd.text;
+
+  const maxU = Math.max(...c.stateDetails.map(d => d.u));
+  const statesEl = document.getElementById('modal-states');
+  statesEl.innerHTML = '';
+  c.stateDetails
+    .slice()
+    .sort((a, b) => b.u - a.u)
+    .forEach(d => {
+      const pct = Math.round(d.u / maxU * 100);
+      statesEl.innerHTML += `
+        <div class="modal-state-row">
+          <span class="modal-state-name">${d.s}</span>
+          <div class="modal-bar-bg"><div class="modal-bar-fg" style="width:${pct}%;background:${rd.color};"></div></div>
+          <span class="modal-state-num">${d.u}</span>
+        </div>`;
+    });
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModalDirect() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
 </script>
 </body>
 </html>
