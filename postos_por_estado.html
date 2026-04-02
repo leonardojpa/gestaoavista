@@ -200,7 +200,7 @@ footer {
   <div class="kpi-row">
     <div class="kpi blue">
       <div class="kpi-label">Unidades de postos</div>
-      <div class="kpi-val">230</div>
+      <div class="kpi-val">233</div>
       <div class="kpi-sub">total nacional</div>
     </div>
     <div class="kpi green">
@@ -210,13 +210,13 @@ footer {
     </div>
     <div class="kpi purple">
       <div class="kpi-label">Estados atendidos</div>
-      <div class="kpi-val">12</div>
+      <div class="kpi-val">13</div>
       <div class="kpi-sub">5 regiões do Brasil</div>
     </div>
     <div class="kpi amber">
       <div class="kpi-label">Maior concentração</div>
       <div class="kpi-val" style="font-size:20px;padding-top:5px;">Minas Gerais</div>
-      <div class="kpi-sub">53 unidades — 23,0%</div>
+      <div class="kpi-sub">53 unidades — 22,7%</div>
     </div>
   </div>
 
@@ -233,7 +233,7 @@ footer {
       <div class="donut-wrap">
         <canvas id="chartDonut"></canvas>
         <div class="donut-center">
-          <div class="donut-center-val">230</div>
+          <div class="donut-center-val">233</div>
           <div class="donut-center-label">unidades</div>
         </div>
       </div>
@@ -266,39 +266,40 @@ footer {
 <script>
 /* ── DATA ── */
 const states = [
-  {name:'Rio Grande do Sul',count:41, region:'Sul',           client:'COTRIEL / VALVIC / TRAPÉZIO'},
-  {name:'Minas Gerais',     count:53, region:'Sudeste',       client:'JBRETAS / SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA'},
-  {name:'Santa Catarina',   count:43, region:'Sul',           client:'SONHO MEU / TRAPÉZIO'},
-  {name:'Paraná',           count:29, region:'Sul',           client:'TRAPÉZIO'},
-  {name:'Mato Grosso',      count:14, region:'Centro-Oeste',  client:'MIRIAN'},
-  {name:'São Paulo',        count:10, region:'Sudeste',       client:'COOPERMOTA / TRAPÉZIO'},
-  {name:'Rondônia',         count:10, region:'Norte',         client:'MIRIAN'},
-  {name:'Pará',             count: 8, region:'Norte',         client:'MIRIAN'},
-  {name:'Maranhão',         count: 9, region:'Nordeste',      client:'LIMA / NICOLLETTI'},
-  {name:'Goiás',            count: 6, region:'Centro-Oeste',  client:'DÉCIO / NUTRIZA / COAPIL'},
-  {name:'Bahia',            count: 6, region:'Nordeste',      client:'LARCO'},
-  {name:'Tocantins',        count: 1, region:'Norte',         client:'—'},
+  {name:'Minas Gerais',        count:53, region:'Sudeste',      client:'JBRETAS / SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO'},
+  {name:'Santa Catarina',      count:43, region:'Sul',          client:'SONHO MEU / TRAPÉZIO'},
+  {name:'Rio Grande do Sul',   count:41, region:'Sul',          client:'COTRIEL / VALVIC / TRAPÉZIO'},
+  {name:'Paraná',              count:29, region:'Sul',          client:'TRAPÉZIO'},
+  {name:'São Paulo',           count:10, region:'Sudeste',      client:'COOPERMOTA / TRAPÉZIO / DÉCIO'},
+  {name:'Maranhão',            count: 9, region:'Nordeste',     client:'LIMA / NICOLLETTI'},
+  {name:'Goiás',               count: 7, region:'Centro-Oeste', client:'DÉCIO / NUTRIZA / COAPIL'},
+  {name:'Bahia',               count: 6, region:'Nordeste',     client:'LARCO / DÉCIO'},
+  {name:'Mato Grosso do Sul',  count: 5, region:'Centro-Oeste', client:'MIRIAN'},
+  {name:'Pará',                count: 4, region:'Norte',        client:'MIRIAN'},
+  {name:'Rondônia',            count:12, region:'Norte',        client:'MIRIAN'},
+  {name:'Mato Grosso',         count:13, region:'Centro-Oeste', client:'MIRIAN'},
+  {name:'Tocantins',           count: 1, region:'Norte',        client:'DÉCIO'},
 ];
 
 const clients = [
-  {name:'TRAPÉZIO',   state:'PR / SC / SP / RS', units:60, pdv:null, region:'Sul'},
-  {name:'SONHO MEU',  state:'Santa Catarina',    units:38, pdv:null, region:'Sul'},
-  {name:'JBRETAS',    state:'Minas Gerais',      units:38, pdv:null, region:'Sudeste'},
-  {name:'VALVIC',     state:'Rio Grande do Sul', units:14, pdv:null, region:'Sul'},
-  {name:'DÉCIO',      state:'Goiás',             units:14, pdv:133,  region:'Centro-Oeste'},
-  {name:'MIRIAN',     state:'MT / PA / RO / MS', units:34, pdv:null, region:'Norte'},
-  {name:'COTRIEL',    state:'Rio Grande do Sul', units: 5, pdv:null, region:'Sul'},
-  {name:'COOPERMOTA', state:'São Paulo',          units: 5, pdv:null, region:'Sudeste'},
-  {name:'LARCO',      state:'Bahia',              units: 5, pdv:  2,  region:'Nordeste'},
-  {name:'NICOLLETTI', state:'Maranhão',           units: 5, pdv:null, region:'Nordeste'},
-  {name:'LIMA',       state:'Maranhão',           units: 4, pdv: 16,  region:'Nordeste'},
-  {name:'CAPUL',      state:'Minas Gerais',       units: 2, pdv:null, region:'Sudeste'},
-  {name:'SANPETRO',   state:'Minas Gerais',       units: 2, pdv:null, region:'Sudeste'},
-  {name:'COAPIL',     state:'Goiás',              units: 2, pdv:  0,  region:'Centro-Oeste'},
-  {name:'NUTRIZA',    state:'Goiás',              units: 1, pdv:  2,  region:'Centro-Oeste'},
-  {name:'AGROVERDE',  state:'Minas Gerais',       units: 1, pdv:null, region:'Sudeste'},
-  {name:'COOPEL',     state:'Minas Gerais',       units: 1, pdv:null, region:'Sudeste'},
-  {name:'COOPRATA',   state:'Minas Gerais',       units: 1, pdv:null, region:'Sudeste'},
+  {name:'TRAPÉZIO',   state:'PR / SC / SP / RS',      units:60, pdv:null, region:'Sul'},
+  {name:'SONHO MEU',  state:'Santa Catarina',          units:38, pdv:null, region:'Sul'},
+  {name:'JBRETAS',    state:'Minas Gerais',            units:38, pdv:null, region:'Sudeste'},
+  {name:'MIRIAN',     state:'MS / MT / PA / RO',      units:34, pdv:null, region:'Centro-Oeste'},
+  {name:'VALVIC',     state:'Rio Grande do Sul',       units:14, pdv:null, region:'Sul'},
+  {name:'DÉCIO',      state:'GO / MG / BA / SP / TO', units:15, pdv:null, region:'Centro-Oeste'},
+  {name:'COTRIEL',    state:'Rio Grande do Sul',       units: 5, pdv:null, region:'Sul'},
+  {name:'COOPERMOTA', state:'São Paulo',               units: 5, pdv:null, region:'Sudeste'},
+  {name:'LARCO',      state:'Bahia',                   units: 5, pdv:  2,  region:'Nordeste'},
+  {name:'NICOLLETTI', state:'Maranhão',                units: 5, pdv:null, region:'Nordeste'},
+  {name:'LIMA',       state:'Maranhão',                units: 4, pdv: 16,  region:'Nordeste'},
+  {name:'CAPUL',      state:'Minas Gerais',            units: 2, pdv:null, region:'Sudeste'},
+  {name:'SANPETRO',   state:'Minas Gerais',            units: 2, pdv:null, region:'Sudeste'},
+  {name:'COAPIL',     state:'Goiás',                   units: 2, pdv:  0,  region:'Centro-Oeste'},
+  {name:'NUTRIZA',    state:'Goiás',                   units: 1, pdv:  2,  region:'Centro-Oeste'},
+  {name:'AGROVERDE',  state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste'},
+  {name:'COOPEL',     state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste'},
+  {name:'COOPRATA',   state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste'},
 ];
 
 const rDef = {
@@ -348,7 +349,7 @@ new Chart(document.getElementById('chartDonut'), {
 });
 const dlEl = document.getElementById('donut-legend');
 rKeys.forEach((k, i) => {
-  const pct = Math.round(rVals[i] / 230 * 100);
+  const pct = Math.round(rVals[i] / 233 * 100);
   dlEl.innerHTML += `<div class="dl-item">
     <span class="dl-swatch" style="background:${rColors[i]};"></span>
     ${k} <span class="dl-val">${rVals[i]}</span>
