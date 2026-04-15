@@ -246,6 +246,18 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .modal-state-num { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); width: 24px; text-align: right; flex-shrink: 0; }
 .client-card-hint { font-size: 10px; color: var(--text3); margin-top: 2px; }
 .client-card:hover .client-card-hint { color: var(--accent); }
+.modal-info { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
+.modal-info-row { display: flex; gap: 10px; align-items: flex-start; }
+.modal-info-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; width: 90px; flex-shrink: 0; padding-top: 2px; }
+.modal-info-val { font-size: 12.5px; color: var(--text2); flex: 1; line-height: 1.5; }
+.modal-section-title { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin: 14px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.modal-info-row { display: flex; gap: 10px; align-items: flex-start; }
+.modal-info-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; width: 90px; flex-shrink: 0; padding-top: 1px; }
+.modal-info-val { font-size: 12.5px; color: var(--text2); flex: 1; line-height: 1.5; }
+.modal-info-val.highlight { color: var(--text); }
+.modal-divider { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin: 14px 0 10px; display: flex; align-items: center; gap: 8px; }
+.modal-divider::before { content:''; flex:1; height:1px; background: var(--border); }
+.modal-divider::after  { content:''; flex:1; height:1px; background: var(--border); }
 
 /* ── SCROLLBAR ───────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -359,7 +371,12 @@ footer {
     </div>
     <span class="modal-region-tag" id="modal-region-tag"></span>
     <div class="modal-total">Total de unidades: <span id="modal-total">—</span></div>
+
+    <div class="modal-section-title">Unidades por estado</div>
     <div id="modal-states"></div>
+
+    <div class="modal-section-title">Informações do cliente</div>
+    <div class="modal-info" id="modal-info"></div>
   </div>
 </div>
 
@@ -370,7 +387,7 @@ footer {
 <script>
 /* ── DATA ── */
 const states = [
-  {name:'Minas Gerais',        count:56, region:'Sudeste',      client:'JBRETAS / SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERABAETE'},
+  {name:'Minas Gerais',        count:56, region:'Sudeste',      client:'JBRETAS / SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERBAETE'},
   {name:'Santa Catarina',      count:43, region:'Sul',          client:'SONHO MEU / TRAPÉZIO'},
   {name:'Rio Grande do Sul',   count:41, region:'Sul',          client:'COTRIEL / VALVIC / TRAPÉZIO'},
   {name:'Paraná',              count:31, region:'Sul',          client:'TRAPÉZIO / CAMISC'},
@@ -387,46 +404,67 @@ const states = [
 
 const clients = [
   {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:60, pdv:null, region:'Sul',
+   info:{pista:'Ipiranga, Vibra e Shell', conv:'Ipiranga (AMPM), Vibra (BrMania) e Shell (Select)', adq:'GetNet'},
    stateDetails:[{s:'Paraná',u:29},{s:'Rio Grande do Sul',u:22},{s:'Santa Catarina',u:5},{s:'São Paulo',u:4}]},
   {name:'SONHO MEU',   state:'Santa Catarina',          units:38, pdv:null, region:'Sul',
+   info:{pista:'Ipiranga, Vibra', conv:'Ipiranga (AMPM), Vibra (BrMania) e Própria', adq:'Rede'},
    stateDetails:[{s:'Santa Catarina',u:38}]},
   {name:'JBRETAS',     state:'Minas Gerais',            units:38, pdv:null, region:'Sudeste',
+   info:{pista:'Ipiranga', conv:'—', adq:'GetNet, Rede'},
    stateDetails:[{s:'Minas Gerais',u:38}]},
   {name:'MIRIAN',      state:'MS / MT / PA / RO',      units:34, pdv:null, region:'Centro-Oeste',
+   info:{pista:'Ipiranga, Vibra', conv:'Vibra (BrMania)', adq:'Rede, GetNet, Cielo'},
    stateDetails:[{s:'Mato Grosso',u:13},{s:'Rondônia',u:12},{s:'Mato Grosso do Sul',u:5},{s:'Pará',u:4}]},
   {name:'VALVIC',      state:'Rio Grande do Sul',       units:14, pdv:null, region:'Sul',
+   info:{pista:'Bandeira Branca', conv:'—', adq:'—'},
    stateDetails:[{s:'Rio Grande do Sul',u:14}]},
   {name:'DÉCIO',       state:'GO / MG / BA / SP / TO', units:15, pdv:null, region:'Centro-Oeste',
+   info:{pista:'Shell e Vibra', conv:'Vibra (BrMania) e Própria', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:8},{s:'Goiás',u:4},{s:'Bahia',u:1},{s:'São Paulo',u:1},{s:'Tocantins',u:1}]},
   {name:'COTRIEL',     state:'Rio Grande do Sul',       units: 5, pdv:null, region:'Sul',
+   info:{pista:'Ipiranga', conv:'Própria', adq:'—'},
    stateDetails:[{s:'Rio Grande do Sul',u:5}]},
   {name:'COOPERMOTA',  state:'São Paulo',               units: 5, pdv:null, region:'Sudeste',
+   info:{pista:'Bandeira Branca', conv:'Própria', adq:'Cielo'},
    stateDetails:[{s:'São Paulo',u:5}]},
   {name:'LARCO',       state:'Bahia',                   units: 5, pdv:  2,  region:'Nordeste',
+   info:{pista:'Bandeira Própria', conv:'Própria', adq:'Cielo'},
    stateDetails:[{s:'Bahia',u:5}]},
   {name:'NICOLLETTI',  state:'Maranhão',                units: 5, pdv:null, region:'Nordeste',
+   info:{pista:'Bandeira Própria', conv:'Própria', adq:'—'},
    stateDetails:[{s:'Maranhão',u:5}]},
   {name:'LIMA',        state:'Maranhão',                units: 4, pdv: 16,  region:'Nordeste',
+   info:{pista:'Shell', conv:'Shell (Select)', adq:'Cielo'},
    stateDetails:[{s:'Maranhão',u:4}]},
   {name:'CAPUL',       state:'Minas Gerais',            units: 2, pdv:null, region:'Sudeste',
+   info:{pista:'Ipiranga', conv:'Não tem', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:2}]},
   {name:'SANPETRO',    state:'Minas Gerais',            units: 2, pdv:null, region:'Sudeste',
+   info:{pista:'Vibra', conv:'Própria', adq:'—'},
    stateDetails:[{s:'Minas Gerais',u:2}]},
   {name:'COAPIL',      state:'Goiás',                   units: 2, pdv:  0,  region:'Centro-Oeste',
+   info:{pista:'Vibra', conv:'Própria', adq:'Cielo'},
    stateDetails:[{s:'Goiás',u:2}]},
   {name:'COOPERBOM',   state:'Minas Gerais',            units: 2, pdv:null, region:'Sudeste',
+   info:{pista:'—', conv:'—', adq:'—'},
    stateDetails:[{s:'Minas Gerais',u:2}]},
   {name:'CAMISC',      state:'Paraná',                  units: 2, pdv:null, region:'Sul',
+   info:{pista:'—', conv:'—', adq:'—'},
    stateDetails:[{s:'Paraná',u:2}]},
   {name:'NUTRIZA',     state:'Goiás',                   units: 1, pdv:  2,  region:'Centro-Oeste',
+   info:{pista:'Vibra', conv:'Terceirizada', adq:'Cielo'},
    stateDetails:[{s:'Goiás',u:1}]},
   {name:'AGROVERDE',   state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste',
+   info:{pista:'Vibra', conv:'Vibra (BrMania)', adq:'—'},
    stateDetails:[{s:'Minas Gerais',u:1}]},
   {name:'COOPEL',      state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste',
+   info:{pista:'Ipiranga', conv:'Não tem', adq:'Stone'},
    stateDetails:[{s:'Minas Gerais',u:1}]},
   {name:'COOPRATA',    state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste',
+   info:{pista:'Petrona', conv:'Própria', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:1}]},
-  {name:'COOPERABAETE', state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste',
+  {name:'COOPERBAETE', state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste',
+   info:{pista:'—', conv:'—', adq:'—'},
    stateDetails:[{s:'Minas Gerais',u:1}]},
 ];
 
@@ -563,6 +601,20 @@ function openModal(c) {
           <span class="modal-state-num">${d.u}</span>
         </div>`;
     });
+
+  document.getElementById('modal-info').innerHTML = `
+    <div class="modal-info-row">
+      <span class="modal-info-label">Pista</span>
+      <span class="modal-info-val">${c.info.pista || '—'}</span>
+    </div>
+    <div class="modal-info-row">
+      <span class="modal-info-label">Conveniência</span>
+      <span class="modal-info-val">${c.info.conv || '—'}</span>
+    </div>
+    <div class="modal-info-row">
+      <span class="modal-info-label">Adquirente</span>
+      <span class="modal-info-val">${c.info.adq || '—'}</span>
+    </div>`;
 
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
