@@ -345,13 +345,6 @@ footer {
 
   </div>
 
-  <!-- BAR CHART -->
-  <div class="card" style="margin-bottom:16px;">
-    <div class="card-title">Volume por estado — ranking completo</div>
-    <div class="bar-wrap" id="bar-wrap">
-      <canvas id="chartBar"></canvas>
-    </div>
-  </div>
 
   <!-- CLIENT CARDS -->
   <div class="card-title" style="margin-bottom:14px;display:flex;align-items:center;gap:8px;">
@@ -523,32 +516,6 @@ rKeys.forEach((k, i) => {
   </div>`;
 });
 
-/* ── BAR CHART ── */
-const bh = Math.max(280, states.length * 30 + 60);
-document.getElementById('bar-wrap').style.height = bh + 'px';
-new Chart(document.getElementById('chartBar'), {
-  type: 'bar',
-  data: {
-    labels: states.map(s => s.name),
-    datasets: [{
-      data: states.map(s => s.count),
-      backgroundColor: states.map(s => rDef[s.region].color),
-      borderWidth: 0,
-      borderRadius: 5,
-    }]
-  },
-  options: {
-    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: { callbacks: { label: ctx => '  ' + ctx.raw + ' unidades' } }
-    },
-    scales: {
-      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#3e4a60' } },
-      y: { ticks: { color: '#7e8aa0', font: { size: 12, family: "'DM Sans'" } }, grid: { display: false } }
-    }
-  }
-});
 
 /* ── CLIENT CARDS ── */
 const cgEl = document.getElementById('clients-grid');
