@@ -319,7 +319,7 @@ footer {
   <div class="kpi-row">
     <div class="kpi blue">
       <div class="kpi-label">Unidades de postos</div>
-      <div class="kpi-val">236</div>
+      <div class="kpi-val">233</div>
       <div class="kpi-sub">total nacional</div>
     </div>
     <div class="kpi green">
@@ -335,7 +335,7 @@ footer {
     <div class="kpi amber">
       <div class="kpi-label">Maior concentração</div>
       <div class="kpi-val" style="font-size:20px;padding-top:5px;">Minas Gerais</div>
-      <div class="kpi-sub">56 unidades — 23,7%</div>
+      <div class="kpi-sub">50 unidades — 21,5%</div>
     </div>
   </div>
 
@@ -352,7 +352,7 @@ footer {
       <div class="donut-wrap">
         <canvas id="chartDonut"></canvas>
         <div class="donut-center">
-          <div class="donut-center-val">236</div>
+          <div class="donut-center-val">233</div>
           <div class="donut-center-label">unidades</div>
         </div>
       </div>
@@ -412,14 +412,14 @@ footer {
 <script>
 /* ── DATA ── */
 const states = [
-  {name:'Minas Gerais',        count:56, region:'Sudeste',      client:'JBRETAS / SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERBAETE'},
+  {name:'Minas Gerais',        count:50, region:'Sudeste',      client:'JBRETAS / SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERBAETE'},
   {name:'Santa Catarina',      count:43, region:'Sul',          client:'SONHO MEU / TRAPÉZIO'},
   {name:'Rio Grande do Sul',   count:41, region:'Sul',          client:'COTRIEL / VALVIC / TRAPÉZIO'},
   {name:'Paraná',              count:31, region:'Sul',          client:'TRAPÉZIO / CAMISC'},
   {name:'Mato Grosso',         count:13, region:'Centro-Oeste', client:'MIRIAN'},
   {name:'Rondônia',            count:12, region:'Norte',        client:'MIRIAN'},
   {name:'São Paulo',           count:10, region:'Sudeste',      client:'COOPERMOTA / TRAPÉZIO / DÉCIO'},
-  {name:'Maranhão',            count: 9, region:'Nordeste',     client:'LIMA / NICOLLETTI'},
+  {name:'Maranhão',            count:10, region:'Nordeste',     client:'LIMA / NICOLLETTI'},
   {name:'Goiás',               count: 7, region:'Centro-Oeste', client:'DÉCIO / NUTRIZA / COAPIL'},
   {name:'Bahia',               count: 6, region:'Nordeste',     client:'LARCO / DÉCIO'},
   {name:'Mato Grosso do Sul',  count: 5, region:'Centro-Oeste', client:'MIRIAN'},
@@ -434,9 +434,9 @@ const clients = [
   {name:'SONHO MEU',   state:'Santa Catarina',          units:38, pdv:null, region:'Sul',
    info:{pista:'Ipiranga, Vibra', conv:'Ipiranga (AMPM), Vibra (BrMania), Própria', adq:'Rede'},
    stateDetails:[{s:'Santa Catarina',u:38}]},
-  {name:'JBRETAS',     state:'Minas Gerais',            units:38, pdv:null, region:'Sudeste',
+  {name:'JBRETAS',     state:'Minas Gerais',            units:32, pdv:null, region:'Sudeste',
    info:{pista:'Ipiranga', conv:'—', adq:'GetNet, Rede'},
-   stateDetails:[{s:'Minas Gerais',u:38}]},
+   stateDetails:[{s:'Minas Gerais',u:32}]},
   {name:'MIRIAN',      state:'MS / MT / PA / RO',      units:34, pdv:null, region:'Centro-Oeste',
    info:{pista:'Ipiranga, Vibra', conv:'Vibra (BrMania)', adq:'Rede, GetNet, Cielo'},
    stateDetails:[{s:'Mato Grosso',u:13},{s:'Rondônia',u:12},{s:'Mato Grosso do Sul',u:5},{s:'Pará',u:4}]},
@@ -540,7 +540,7 @@ new Chart(document.getElementById('chartDonut'), {
 });
 const dlEl = document.getElementById('donut-legend');
 rKeys.forEach((k, i) => {
-  const pct = Math.round(rVals[i] / 236 * 100);
+  const pct = Math.round(rVals[i] / 233 * 100);
   dlEl.innerHTML += `<div class="dl-item">
     <span class="dl-swatch" style="background:${rColors[i]};"></span>
     ${k} <span class="dl-val">${rVals[i]}</span>
