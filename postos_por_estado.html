@@ -137,7 +137,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .bar-wrap { position: relative; }
 
 /* ── CLIENTS TABLE ───────────────────────────────── */
-.clients-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-bottom: 16px; }
+.clients-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 16px; }
 /* ── MODAL ───────────────────────────────────────── */
 .modal-overlay {
   display: none;
@@ -181,21 +181,37 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .modal-bar-bg { flex: 1; height: 8px; background: var(--bg4); border-radius: 4px; overflow: hidden; }
 .modal-bar-fg { height: 100%; border-radius: 4px; }
 .modal-state-num { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); width: 24px; text-align: right; flex-shrink: 0; }
-.client-card { cursor: pointer; transition: border-color 0.15s, transform 0.15s; }
-.client-card:hover { border-color: var(--border2); transform: translateY(-2px); }
-
-.client-card {
-  background: var(--bg3); border: 1px solid var(--border);
-  border-radius: var(--r-sm); padding: 14px 16px;
-  display: flex; flex-direction: column; gap: 6px;
-}
-.client-card-name { font-size: 13px; font-weight: 600; color: var(--text); }
-.client-card-row  { display: flex; justify-content: space-between; align-items: center; }
+.client-card { cursor: pointer; transition: border-color 0.15s, transform 0.15s; border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 0; }
+.client-card:hover { transform: translateY(-2px); }
+.client-card.active { background: var(--bg2); border: 1px solid #4ade80; border-left: 3px solid #4ade80; }
+.client-card.inactive { background: var(--bg3); border: 1px solid var(--border); }
+.client-card.active:hover { border-color: #4ade80; }
+.client-card.inactive:hover { border-color: var(--border2); }
+.client-card-name { font-size: 13px; font-weight: 600; }
+.client-card.active .client-card-name { color: var(--text); }
+.client-card.inactive .client-card-name { color: var(--text2); }
+.client-status-pill { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 500; white-space: nowrap; align-self: flex-start; margin-bottom: 10px; margin-top: 4px; }
+.pill-active { background: rgba(74,222,128,0.12); color: #4ade80; border: 1px solid rgba(74,222,128,0.25); }
+.pill-inactive { background: rgba(255,255,255,0.04); color: var(--text3); border: 1px solid var(--border); }
+.client-units { font-size: 30px; font-weight: 500; line-height: 1; margin-bottom: 2px; }
+.client-card.active .client-units { color: #4ade80; }
+.client-card.inactive .client-units { color: var(--text3); }
+.client-units-label { font-size: 11px; margin-bottom: 12px; }
+.client-card.active .client-units-label { color: rgba(74,222,128,0.6); }
+.client-card.inactive .client-units-label { color: var(--text3); }
+.client-divider { height: 1px; margin-bottom: 10px; }
+.client-card.active .client-divider { background: rgba(74,222,128,0.15); }
+.client-card.inactive .client-divider { background: var(--border); }
+.client-card-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+.client-card-row:last-of-type { margin-bottom: 0; }
 .client-card-label { font-size: 11px; color: var(--text3); }
-.client-card-val   { font-family: var(--mono); font-size: 12px; color: var(--text2); }
-.client-region-tag {
-  font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 500; align-self: flex-start;
-}
+.client-card-val { font-size: 11px; color: var(--text2); text-align: right; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.client-card-hint { font-size: 10px; color: var(--text3); margin-top: 10px; }
+.client-card.active .client-card-hint { color: rgba(74,222,128,0.5); }
+.client-status-bar { height: 2px; border-radius: 0 0 var(--r) var(--r); margin: 10px -16px -16px; }
+.client-card.active .client-status-bar { background: rgba(74,222,128,0.4); }
+.client-card.inactive .client-status-bar { background: rgba(255,255,255,0.04); }
+.client-region-tag { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 500; align-self: flex-start; }
 
 /* ── MODAL ───────────────────────────────────────── */
 .modal-overlay {
@@ -347,9 +363,25 @@ footer {
 
 
   <!-- CLIENT CARDS -->
-  <div class="card-title" style="margin-bottom:14px;display:flex;align-items:center;gap:8px;">
-    <span style="width:3px;height:14px;border-radius:2px;background:var(--accent);display:inline-block;"></span>
-    Clientes e suas unidades
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
+    <div class="card-title" style="display:flex;align-items:center;gap:8px;margin:0;">
+      <span style="width:3px;height:14px;border-radius:2px;background:var(--accent);display:inline-block;"></span>
+      Clientes e suas unidades
+    </div>
+    <div style="display:flex;gap:20px;align-items:center;">
+      <div style="text-align:center;">
+        <div style="font-size:20px;font-weight:500;color:#4ade80;" id="sum-active">0</div>
+        <div style="font-size:11px;color:var(--text3);">ativos</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:20px;font-weight:500;color:var(--text3);" id="sum-inactive">0</div>
+        <div style="font-size:11px;color:var(--text3);">em implantação</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:20px;font-weight:500;color:var(--text);" id="sum-units">0</div>
+        <div style="font-size:11px;color:var(--text3);">unidades ativas</div>
+      </div>
+    </div>
   </div>
   <div class="clients-grid" id="clients-grid"></div>
 
@@ -423,9 +455,9 @@ const clients = [
   {name:'LARCO',       state:'Bahia',                   units: 5, pdv:  2,  region:'Nordeste',
    info:{pista:'Bandeira Própria', conv:'Própria', adq:'Cielo'},
    stateDetails:[{s:'Bahia',u:5}]},
-  {name:'NICOLLETTI',  state:'Maranhão',                units: 5, pdv:null, region:'Nordeste',
-   info:{pista:'Bandeira Ipiranga', conv:'Ipiranga (AMPM), Própria', adq:'Rede, Cielo'},
-   stateDetails:[{s:'Maranhão',u:5}]},
+  {name:'NICOLLETTI',  state:'Maranhão',                units: 6, pdv:null, region:'Nordeste',
+   info:{pista:'Bandeira Ipiranga, Vibra', conv:'Ipiranga (AMPM), Própria', adq:'Rede, Cielo'},
+   stateDetails:[{s:'Maranhão',u:6}]},
   {name:'LIMA',        state:'Maranhão',                units: 4, pdv: 16,  region:'Nordeste',
    info:{pista:'Shell', conv:'Shell (Select)', adq:'Cielo'},
    stateDetails:[{s:'Maranhão',u:4}]},
@@ -518,30 +550,43 @@ rKeys.forEach((k, i) => {
 
 
 /* ── CLIENT CARDS ── */
+const inactiveClients = ['CAMISC','SONHO MEU','COOPERBAETE','COOPERBOM','NICOLLETTI','COTRIEL','AGROVERDE','VALVIC'];
 const cgEl = document.getElementById('clients-grid');
-clients.forEach(c => {
+let sumActive=0, sumInactive=0, sumUnitsActive=0;
+
+const sortedClients = [...clients].sort((a,b) => a.name.localeCompare(b.name, 'pt-BR'));
+
+sortedClients.forEach(c => {
+  const isActive = !inactiveClients.includes(c.name);
+  if(isActive){ sumActive++; sumUnitsActive+=c.units; } else sumInactive++;
   const rd = rDef[c.region];
   const div = document.createElement('div');
-  div.className = 'client-card';
+  div.className = 'client-card ' + (isActive ? 'active' : 'inactive');
   div.innerHTML = `
-    <div class="client-card-name">${c.name}</div>
-    <span class="client-region-tag" style="background:${rd.bg};color:${rd.text};">${c.region}</span>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">
+      <span class="client-card-name">${c.name}</span>
+      <span class="client-status-pill ${isActive?'pill-active':'pill-inactive'}">${isActive?'Ativo':'Implantação'}</span>
+    </div>
+    <div class="client-units">${c.units}</div>
+    <div class="client-units-label">unidades</div>
+    <div class="client-divider"></div>
     <div class="client-card-row">
       <span class="client-card-label">Estado(s)</span>
       <span class="client-card-val">${c.state}</span>
     </div>
     <div class="client-card-row">
-      <span class="client-card-label">Unidades</span>
-      <span class="client-card-val" style="color:var(--text);">${c.units}</span>
+      <span class="client-card-label">Região</span>
+      <span class="client-card-val">${c.region}</span>
     </div>
-    ${c.pdv !== null ? `<div class="client-card-row">
-      <span class="client-card-label">PDVs fixos</span>
-      <span class="client-card-val">${c.pdv}</span>
-    </div>` : ''}
-    <div class="client-card-hint">clique para ver por estado</div>`;
+    <div class="client-card-hint">clique para ver detalhes</div>
+    <div class="client-status-bar"></div>`;
   div.addEventListener('click', () => openModal(c));
   cgEl.appendChild(div);
 });
+
+document.getElementById('sum-active').textContent = sumActive;
+document.getElementById('sum-inactive').textContent = sumInactive;
+document.getElementById('sum-units').textContent = sumUnitsActive;
 
 /* ── MODAL ── */
 function openModal(c) {
