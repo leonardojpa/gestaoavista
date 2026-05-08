@@ -319,7 +319,7 @@ footer {
   <div class="kpi-row">
     <div class="kpi blue">
       <div class="kpi-label">Unidades de postos</div>
-      <div class="kpi-val">233</div>
+      <div class="kpi-val">235</div>
       <div class="kpi-sub">total nacional</div>
     </div>
     <div class="kpi green">
@@ -335,7 +335,7 @@ footer {
     <div class="kpi amber">
       <div class="kpi-label">Maior concentração</div>
       <div class="kpi-val" style="font-size:20px;padding-top:5px;">Minas Gerais</div>
-      <div class="kpi-sub">50 unidades — 21,5%</div>
+      <div class="kpi-sub">52 unidades — 22,1%</div>
     </div>
   </div>
 
@@ -352,7 +352,7 @@ footer {
       <div class="donut-wrap">
         <canvas id="chartDonut"></canvas>
         <div class="donut-center">
-          <div class="donut-center-val">233</div>
+          <div class="donut-center-val">235</div>
           <div class="donut-center-label">unidades</div>
         </div>
       </div>
@@ -412,7 +412,7 @@ footer {
 <script>
 /* ── DATA ── */
 const states = [
-  {name:'Minas Gerais',        count:50, region:'Sudeste',      client:'JBRETAS / SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERBAETE'},
+  {name:'Minas Gerais',        count:52, region:'Sudeste',      client:'JBRETAS / SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERBAETE'},
   {name:'Santa Catarina',      count:43, region:'Sul',          client:'SONHO MEU / TRAPÉZIO'},
   {name:'Rio Grande do Sul',   count:41, region:'Sul',          client:'COTRIEL / VALVIC / TRAPÉZIO'},
   {name:'Paraná',              count:31, region:'Sul',          client:'TRAPÉZIO / CAMISC'},
@@ -428,69 +428,69 @@ const states = [
 ];
 
 const clients = [
-  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:60, pdv:null, region:'Sul',
+  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:60, pdv:null, impl:11, rollout:49, region:'Sul',
    info:{pista:'Ipiranga, Vibra, Shell', conv:'Ipiranga (AMPM), Vibra (BrMania), Shell (Select)', adq:'GetNet'},
    stateDetails:[{s:'Paraná',u:29},{s:'Rio Grande do Sul',u:22},{s:'Santa Catarina',u:5},{s:'São Paulo',u:4}]},
-  {name:'SONHO MEU',   state:'Santa Catarina',          units:38, pdv:null, region:'Sul',
+  {name:'SONHO MEU',   state:'Santa Catarina',          units:38, pdv:null, impl:0, rollout:38, region:'Sul',
    info:{pista:'Ipiranga, Vibra', conv:'Ipiranga (AMPM), Vibra (BrMania), Própria', adq:'Rede'},
    stateDetails:[{s:'Santa Catarina',u:38}]},
-  {name:'JBRETAS',     state:'Minas Gerais',            units:32, pdv:null, region:'Sudeste',
+  {name:'JBRETAS',     state:'Minas Gerais',            units:32, pdv:null, impl:1, rollout:31, region:'Sudeste',
    info:{pista:'Ipiranga', conv:'—', adq:'GetNet, Rede'},
    stateDetails:[{s:'Minas Gerais',u:32}]},
-  {name:'MIRIAN',      state:'MS / MT / PA / RO',      units:34, pdv:null, region:'Centro-Oeste',
+  {name:'MIRIAN',      state:'MS / MT / PA / RO',      units:34, pdv:null, impl:1, rollout:33, region:'Centro-Oeste',
    info:{pista:'Ipiranga, Vibra', conv:'Vibra (BrMania)', adq:'Rede, GetNet, Cielo'},
    stateDetails:[{s:'Mato Grosso',u:13},{s:'Rondônia',u:12},{s:'Mato Grosso do Sul',u:5},{s:'Pará',u:4}]},
-  {name:'VALVIC',      state:'Rio Grande do Sul',       units:14, pdv:null, region:'Sul',
+  {name:'VALVIC',      state:'Rio Grande do Sul',       units:14, pdv:null, impl:0, rollout:14, region:'Sul',
    info:{pista:'Bandeira Branca', conv:'—', adq:'Rede, GetNet'},
    stateDetails:[{s:'Rio Grande do Sul',u:14}]},
-  {name:'DÉCIO',       state:'GO / MG / BA / SP / TO', units:15, pdv:null, region:'Centro-Oeste',
+  {name:'DÉCIO',       state:'GO / MG / BA / SP / TO', units:15, pdv:null, impl:15, rollout:0, region:'Centro-Oeste',
    info:{pista:'Shell, Vibra', conv:'Vibra (BrMania), Própria', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:8},{s:'Goiás',u:4},{s:'Bahia',u:1},{s:'São Paulo',u:1},{s:'Tocantins',u:1}]},
-  {name:'COTRIEL',     state:'Rio Grande do Sul',       units: 5, pdv:null, region:'Sul',
+  {name:'COTRIEL',     state:'Rio Grande do Sul',       units: 5, pdv:null, impl:0, rollout:5, region:'Sul',
    info:{pista:'Ipiranga', conv:'Própria', adq:'—'},
    stateDetails:[{s:'Rio Grande do Sul',u:5}]},
-  {name:'COOPERMOTA',  state:'São Paulo',               units: 5, pdv:null, region:'Sudeste',
+  {name:'COOPERMOTA',  state:'São Paulo',               units: 5, pdv:null, impl:5, rollout:0, region:'Sudeste',
    info:{pista:'Bandeira Branca', conv:'Própria', adq:'Cielo'},
    stateDetails:[{s:'São Paulo',u:5}]},
   {name:'LARCO',       state:'Bahia',                   units: 5, pdv:  2,  region:'Nordeste',
    info:{pista:'Bandeira Própria', conv:'Própria', adq:'Cielo'},
    stateDetails:[{s:'Bahia',u:5}]},
-  {name:'NICOLLETTI',  state:'Maranhão',                units: 6, pdv:null, region:'Nordeste',
+  {name:'NICOLLETTI',  state:'Maranhão',                units: 6, pdv:null, impl:0, rollout:6, region:'Nordeste',
    info:{pista:'Bandeira Ipiranga, Vibra', conv:'Ipiranga (AMPM), Própria', adq:'Rede, Cielo'},
    stateDetails:[{s:'Maranhão',u:6}]},
   {name:'LIMA',        state:'Maranhão',                units: 4, pdv: 16,  region:'Nordeste',
    info:{pista:'Shell', conv:'Shell (Select)', adq:'Cielo'},
    stateDetails:[{s:'Maranhão',u:4}]},
-  {name:'CAPUL',       state:'Minas Gerais',            units: 2, pdv:null, region:'Sudeste',
+  {name:'CAPUL',       state:'Minas Gerais',            units: 2, pdv:null, impl:2, rollout:0, region:'Sudeste',
    info:{pista:'Ipiranga', conv:'Não tem', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:2}]},
-  {name:'SANPETRO',    state:'Minas Gerais',            units: 2, pdv:null, region:'Sudeste',
+  {name:'SANPETRO',    state:'Minas Gerais',            units: 2, pdv:null, impl:2, rollout:0, region:'Sudeste',
    info:{pista:'Vibra', conv:'Própria', adq:'—'},
    stateDetails:[{s:'Minas Gerais',u:2}]},
   {name:'COAPIL',      state:'Goiás',                   units: 2, pdv:  0,  region:'Centro-Oeste',
    info:{pista:'Vibra', conv:'Própria', adq:'Cielo'},
    stateDetails:[{s:'Goiás',u:2}]},
-  {name:'COOPERBOM',   state:'Minas Gerais',            units: 2, pdv:null, region:'Sudeste',
+  {name:'COOPERBOM',   state:'Minas Gerais',            units: 2, pdv:null, impl:2, rollout:0, region:'Sudeste',
    info:{pista:'—', conv:'—', adq:'—'},
    stateDetails:[{s:'Minas Gerais',u:2}]},
-  {name:'CAMISC',      state:'Paraná',                  units: 2, pdv:null, region:'Sul',
+  {name:'CAMISC',      state:'Paraná',                  units: 2, pdv:null, impl:0, rollout:2, region:'Sul',
    info:{pista:'—', conv:'—', adq:'—'},
    stateDetails:[{s:'Paraná',u:2}]},
-  {name:'NUTRIZA',     state:'Goiás',                   units: 1, pdv:  2,  region:'Centro-Oeste',
+  {name:'NUTRIZA',     state:'Goiás',                   units: 1, pdv:  2,  impl:1, rollout:0, region:'Centro-Oeste',
    info:{pista:'Vibra', conv:'Terceirizada', adq:'Cielo'},
    stateDetails:[{s:'Goiás',u:1}]},
-  {name:'AGROVERDE',   state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste',
+  {name:'AGROVERDE',   state:'Minas Gerais',            units: 1, pdv:null, impl:0, rollout:1, region:'Sudeste',
    info:{pista:'Vibra', conv:'Vibra (BrMania)', adq:'GetNet'},
    stateDetails:[{s:'Minas Gerais',u:1}]},
-  {name:'COOPEL',      state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste',
+  {name:'COOPEL',      state:'Minas Gerais',            units: 1, pdv:null, impl:1, rollout:0, region:'Sudeste',
    info:{pista:'Ipiranga', conv:'Não tem', adq:'Stone'},
    stateDetails:[{s:'Minas Gerais',u:1}]},
-  {name:'COOPRATA',    state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste',
+  {name:'COOPRATA',    state:'Minas Gerais',            units: 1, pdv:null, impl:1, rollout:0, region:'Sudeste',
    info:{pista:'Petrona', conv:'Própria', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:1}]},
-  {name:'COOPERBAETE', state:'Minas Gerais',            units: 1, pdv:null, region:'Sudeste',
+  {name:'COOPERBAETE', state:'Minas Gerais',            units: 3, pdv:null, impl:0, rollout:3, region:'Sudeste',
    info:{pista:'—', conv:'—', adq:'—'},
-   stateDetails:[{s:'Minas Gerais',u:1}]},
+   stateDetails:[{s:'Minas Gerais',u:3}]},
 ];
 
 const rDef = {
@@ -540,7 +540,7 @@ new Chart(document.getElementById('chartDonut'), {
 });
 const dlEl = document.getElementById('donut-legend');
 rKeys.forEach((k, i) => {
-  const pct = Math.round(rVals[i] / 233 * 100);
+  const pct = Math.round(rVals[i] / 235 * 100);
   dlEl.innerHTML += `<div class="dl-item">
     <span class="dl-swatch" style="background:${rColors[i]};"></span>
     ${k} <span class="dl-val">${rVals[i]}</span>
@@ -568,9 +568,17 @@ sortedClients.forEach(c => {
       <span class="client-status-pill ${isActive?'pill-active':'pill-inactive'}">${isActive?'Ativo':'Implantação'}</span>
     </div>
     <div class="client-units">${c.units}</div>
-    <div class="client-units-label">unidades</div>
+    <div class="client-units-label">unidades totais</div>
     <div class="client-divider"></div>
     <div class="client-card-row">
+      <span class="client-card-label" style="color:var(--text);font-weight:600;">Implantados</span>
+      <span class="client-card-val" style="color:${c.impl>0?'#4ade80':'var(--text)'};font-weight:600;">${c.impl}</span>
+    </div>
+    <div class="client-card-row">
+      <span class="client-card-label" style="color:var(--text);font-weight:600;">Aguard. rollout</span>
+      <span class="client-card-val" style="color:${c.rollout>0?'#fbbf24':'var(--text)'};font-weight:600;">${c.rollout}</span>
+    </div>
+    <div class="client-card-row" style="margin-top:4px;">
       <span class="client-card-label">Estado(s)</span>
       <span class="client-card-val">${c.state}</span>
     </div>
