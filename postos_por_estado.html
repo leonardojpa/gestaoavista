@@ -177,14 +177,14 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .modal-total span { font-family: var(--mono); color: var(--text2); font-size: 13px; }
 .modal-state-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .modal-state-row:last-child { margin-bottom: 0; }
-.modal-state-name { font-size: 13px; color: var(--text2); width: 160px; flex-shrink: 0; }
+.modal-state-name { font-size: 13px; color: #c8d0e0; width: 160px; flex-shrink: 0; }
 .modal-bar-bg { flex: 1; height: 8px; background: var(--bg4); border-radius: 4px; overflow: hidden; }
 .modal-bar-fg { height: 100%; border-radius: 4px; }
 .modal-state-num { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); width: 24px; text-align: right; flex-shrink: 0; }
 .client-card { cursor: pointer; transition: border-color 0.15s, transform 0.15s; border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 0; }
 .client-card:hover { transform: translateY(-2px); }
 .client-card.active { background: var(--bg2); border: 1px solid #4ade80; border-left: 3px solid #4ade80; }
-.client-card.inactive { background: var(--bg3); border: 1px solid var(--border); }
+.client-card.inactive { background: var(--bg3); border: 1px solid var(--border); opacity: 0.45; }
 .client-card.active:hover { border-color: #4ade80; }
 .client-card.inactive:hover { border-color: var(--border2); }
 .client-card-name { font-size: 13px; font-weight: 600; }
@@ -256,7 +256,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .modal-total span { font-family: var(--mono); color: var(--text); font-size: 15px; font-weight: 600; }
 .modal-state-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .modal-state-row:last-child { margin-bottom: 0; }
-.modal-state-name { font-size: 13px; color: var(--text2); width: 160px; flex-shrink: 0; }
+.modal-state-name { font-size: 13px; color: #c8d0e0; width: 160px; flex-shrink: 0; }
 .modal-bar-bg { flex: 1; height: 8px; background: var(--bg4); border-radius: 4px; overflow: hidden; }
 .modal-bar-fg { height: 100%; border-radius: 4px; }
 .modal-state-num { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); width: 24px; text-align: right; flex-shrink: 0; }
@@ -264,12 +264,12 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .client-card:hover .client-card-hint { color: var(--accent); }
 .modal-info { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
 .modal-info-row { display: flex; gap: 10px; align-items: flex-start; }
-.modal-info-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; width: 90px; flex-shrink: 0; padding-top: 2px; }
-.modal-info-val { font-size: 12.5px; color: var(--text2); flex: 1; line-height: 1.5; }
-.modal-section-title { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin: 14px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.modal-info-label { font-size: 11px; color: #8892a4; text-transform: uppercase; letter-spacing: 0.07em; width: 90px; flex-shrink: 0; padding-top: 2px; }
+.modal-info-val { font-size: 12.5px; color: #dde3ef; flex: 1; line-height: 1.5; }
+.modal-section-title { font-size: 11px; font-weight: 600; color: #8892a4; text-transform: uppercase; letter-spacing: 0.1em; margin: 14px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
 .modal-info-row { display: flex; gap: 10px; align-items: flex-start; }
-.modal-info-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; width: 90px; flex-shrink: 0; padding-top: 1px; }
-.modal-info-val { font-size: 12.5px; color: var(--text2); flex: 1; line-height: 1.5; }
+.modal-info-label { font-size: 11px; color: #8892a4; text-transform: uppercase; letter-spacing: 0.07em; width: 90px; flex-shrink: 0; padding-top: 1px; }
+.modal-info-val { font-size: 12.5px; color: #dde3ef; flex: 1; line-height: 1.5; }
 .modal-info-val.highlight { color: var(--text); }
 .modal-divider { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin: 14px 0 10px; display: flex; align-items: center; gap: 8px; }
 .modal-divider::before { content:''; flex:1; height:1px; background: var(--border); }
@@ -394,9 +394,7 @@ footer {
       <div class="modal-title" id="modal-client-name">—</div>
       <button class="modal-close" onclick="closeModalDirect()">&#x2715;</button>
     </div>
-    <span class="modal-region-tag" id="modal-region-tag"></span>
-    <div class="modal-total">Total de unidades: <span id="modal-total">—</span></div>
-
+    <div id="modal-region-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;"></div>
     <div class="modal-section-title">Unidades por estado</div>
     <div id="modal-states"></div>
 
@@ -430,7 +428,7 @@ const states = [
 const clients = [
   {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:60, pdv:null, impl:11, rollout:49, region:'Sul',
    info:{pista:'Ipiranga, Vibra, Shell', conv:'Ipiranga (AMPM), Vibra (BrMania), Shell (Select)', adq:'GetNet'},
-   stateDetails:[{s:'Paraná',u:29},{s:'Rio Grande do Sul',u:22},{s:'Santa Catarina',u:5},{s:'São Paulo',u:4}]},
+   stateDetails:[{s:'Paraná',u:29,r:'Sul'},{s:'Rio Grande do Sul',u:22,r:'Sul'},{s:'Santa Catarina',u:5,r:'Sul'},{s:'São Paulo',u:4,r:'Sudeste'}]},
   {name:'SONHO MEU',   state:'Santa Catarina',          units:38, pdv:null, impl:0, rollout:38, region:'Sul',
    info:{pista:'Ipiranga, Vibra', conv:'Ipiranga (AMPM), Vibra (BrMania), Própria', adq:'Rede'},
    stateDetails:[{s:'Santa Catarina',u:38}]},
@@ -439,13 +437,13 @@ const clients = [
    stateDetails:[{s:'Minas Gerais',u:32}]},
   {name:'MIRIAN',      state:'MS / MT / PA / RO',      units:34, pdv:null, impl:1, rollout:33, region:'Centro-Oeste',
    info:{pista:'Ipiranga, Vibra', conv:'Vibra (BrMania)', adq:'Rede, GetNet, Cielo'},
-   stateDetails:[{s:'Mato Grosso',u:13},{s:'Rondônia',u:12},{s:'Mato Grosso do Sul',u:5},{s:'Pará',u:4}]},
+   stateDetails:[{s:'Mato Grosso',u:13,r:'Centro-Oeste'},{s:'Rondônia',u:12,r:'Norte'},{s:'Mato Grosso do Sul',u:5,r:'Centro-Oeste'},{s:'Pará',u:4,r:'Norte'}]},
   {name:'VALVIC',      state:'Rio Grande do Sul',       units:14, pdv:null, impl:0, rollout:14, region:'Sul',
    info:{pista:'Bandeira Branca', conv:'—', adq:'Rede, GetNet'},
    stateDetails:[{s:'Rio Grande do Sul',u:14}]},
   {name:'DÉCIO',       state:'GO / MG / BA / SP / TO', units:15, pdv:null, impl:15, rollout:0, region:'Centro-Oeste',
    info:{pista:'Shell, Vibra', conv:'Vibra (BrMania), Própria', adq:'Cielo'},
-   stateDetails:[{s:'Minas Gerais',u:8},{s:'Goiás',u:4},{s:'Bahia',u:1},{s:'São Paulo',u:1},{s:'Tocantins',u:1}]},
+   stateDetails:[{s:'Minas Gerais',u:8,r:'Sudeste'},{s:'Goiás',u:4,r:'Centro-Oeste'},{s:'Bahia',u:1,r:'Nordeste'},{s:'São Paulo',u:1,r:'Sudeste'},{s:'Tocantins',u:1,r:'Norte'}]},
   {name:'COTRIEL',     state:'Rio Grande do Sul',       units: 5, pdv:null, impl:0, rollout:5, region:'Sul',
    info:{pista:'Ipiranga', conv:'Própria', adq:'—'},
    stateDetails:[{s:'Rio Grande do Sul',u:5}]},
@@ -579,12 +577,12 @@ sortedClients.forEach(c => {
       <span class="client-card-val" style="color:${c.rollout>0?'#fbbf24':'var(--text)'};font-weight:600;">${c.rollout}</span>
     </div>
     <div class="client-card-row" style="margin-top:4px;">
-      <span class="client-card-label">Estado(s)</span>
-      <span class="client-card-val">${c.state}</span>
+      <span class="client-card-label" style="color:#a8b4c8;">Estado(s)</span>
+      <span class="client-card-val" style="color:#dde3ef;font-weight:500;">${c.state}</span>
     </div>
     <div class="client-card-row">
-      <span class="client-card-label">Região</span>
-      <span class="client-card-val">${c.region}</span>
+      <span class="client-card-label" style="color:#a8b4c8;">Região</span>
+      <span class="client-card-val" style="color:#dde3ef;font-weight:500;">${c.region}</span>
     </div>
     <div class="client-card-hint">clique para ver detalhes</div>
     <div class="client-status-bar"></div>`;
@@ -600,11 +598,16 @@ document.getElementById('sum-units').textContent = sumUnitsActive;
 function openModal(c) {
   const rd = rDef[c.region];
   document.getElementById('modal-client-name').textContent = c.name;
-  document.getElementById('modal-total').textContent = c.units;
-  const tag = document.getElementById('modal-region-tag');
-  tag.textContent = c.region;
-  tag.style.background = rd.bg;
-  tag.style.color = rd.text;
+  const tag = document.getElementById('modal-region-tags');
+  tag.innerHTML = '';
+  // Collect unique regions from stateDetails (or fallback to client region)
+  const clientRegions = c.stateDetails
+    ? [...new Set(c.stateDetails.map(d => d.r || c.region))]
+    : [c.region];
+  clientRegions.forEach(r => {
+    const rd = rDef[r] || rDef[c.region];
+    tag.innerHTML += `<span class="modal-region-tag" style="background:${rd.bg};color:${rd.text};">${r}</span>`;
+  });
 
   const maxU = Math.max(...c.stateDetails.map(d => d.u));
   const statesEl = document.getElementById('modal-states');
@@ -613,11 +616,13 @@ function openModal(c) {
     .slice()
     .sort((a, b) => b.u - a.u)
     .forEach(d => {
+      const stateRegion = d.r || c.region;
+      const stateRd = rDef[stateRegion] || rd;
       const pct = Math.round(d.u / maxU * 100);
       statesEl.innerHTML += `
         <div class="modal-state-row">
           <span class="modal-state-name">${d.s}</span>
-          <div class="modal-bar-bg"><div class="modal-bar-fg" style="width:${pct}%;background:${rd.color};"></div></div>
+          <div class="modal-bar-bg"><div class="modal-bar-fg" style="width:${pct}%;background:${stateRd.color};"></div></div>
           <span class="modal-state-num">${d.u}</span>
         </div>`;
     });
