@@ -152,7 +152,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 .modal {
   background: var(--bg2);
-  border: 1px solid var(--border2);
+  border: 0.5px solid var(--border2);
   border-radius: var(--r);
   padding: 24px 28px;
   width: 100%;
@@ -189,7 +189,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .client-card.inactive:hover { border-color: var(--border2); }
 .client-card-name { font-size: 13px; font-weight: 600; }
 .client-card.active .client-card-name { color: var(--text); }
-.client-card.inactive .client-card-name { color: var(--text2); }
+.client-card.inactive .client-card-name { color: var(--text3); }
 .client-status-pill { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 500; white-space: nowrap; align-self: flex-start; margin-bottom: 10px; margin-top: 4px; }
 .pill-active { background: rgba(74,222,128,0.12); color: #4ade80; border: 1px solid rgba(74,222,128,0.25); }
 .pill-inactive { background: rgba(255,255,255,0.04); color: var(--text3); border: 1px solid var(--border); }
@@ -227,7 +227,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 @keyframes fadeInBg { from { opacity:0; } to { opacity:1; } }
 .modal {
   background: var(--bg2);
-  border: 1px solid var(--border2);
+  border: 0.5px solid var(--border2);
   border-radius: var(--r);
   padding: 24px 28px;
   width: 100%;
@@ -278,7 +278,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 /* ── SCROLLBAR ───────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 999px; }
+::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 999px; }
 
 /* ── ANIMATIONS ──────────────────────────────────── */
 @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
@@ -410,7 +410,7 @@ footer {
 <script>
 /* ── DATA ── */
 const states = [
-  {name:'Minas Gerais',        count:52, region:'Sudeste',      client:'JBRETAS / SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERBAETE'},
+  {name:'Minas Gerais',        count:52, region:'Sudeste',      client:'JBRETAS / SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERABAETE'},
   {name:'Santa Catarina',      count:43, region:'Sul',          client:'SONHO MEU / TRAPÉZIO'},
   {name:'Rio Grande do Sul',   count:41, region:'Sul',          client:'COTRIEL / VALVIC / TRAPÉZIO'},
   {name:'Paraná',              count:31, region:'Sul',          client:'TRAPÉZIO / CAMISC'},
@@ -486,17 +486,17 @@ const clients = [
   {name:'COOPRATA',    state:'Minas Gerais',            units: 1, pdv:null, impl:1, rollout:0, region:'Sudeste',
    info:{pista:'Petrona', conv:'Própria', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:1}]},
-  {name:'COOPERBAETE', state:'Minas Gerais',            units: 3, pdv:null, impl:0, rollout:3, region:'Sudeste',
+  {name:'COOPERABAETE', state:'Minas Gerais',            units: 3, pdv:null, impl:0, rollout:3, region:'Sudeste',
    info:{pista:'—', conv:'—', adq:'—'},
    stateDetails:[{s:'Minas Gerais',u:3}]},
 ];
 
 const rDef = {
-  'Sul':          {color:'#4f8ef7', bg:'rgba(79,142,247,0.12)',  text:'#7eb4ff'},
-  'Sudeste':      {color:'#a78bfa', bg:'rgba(167,139,250,0.12)', text:'#c4adff'},
-  'Centro-Oeste': {color:'#2dd4bf', bg:'rgba(45,212,191,0.12)',  text:'#5ee8d8'},
-  'Norte':        {color:'#fbbf24', bg:'rgba(251,191,36,0.12)',  text:'#fcd25a'},
-  'Nordeste':     {color:'#fb7185', bg:'rgba(251,113,133,0.12)', text:'#fd9aaa'},
+  'Sul':          {color:'#4f8ef7', bg:'rgba(79,142,247,0.15)',  text:'#7eb4ff'},
+  'Sudeste':      {color:'#a78bfa', bg:'rgba(167,139,250,0.15)', text:'#c4adff'},
+  'Centro-Oeste': {color:'#2dd4bf', bg:'rgba(45,212,191,0.15)',  text:'#5ee8d8'},
+  'Norte':        {color:'#fbbf24', bg:'rgba(251,191,36,0.15)',  text:'#fcd25a'},
+  'Nordeste':     {color:'#fb7185', bg:'rgba(251,113,133,0.15)', text:'#fd9aaa'},
 };
 
 /* ── DATE ── */
@@ -548,7 +548,7 @@ rKeys.forEach((k, i) => {
 
 
 /* ── CLIENT CARDS ── */
-const inactiveClients = ['CAMISC','SONHO MEU','COOPERBAETE','COOPERBOM','NICOLLETTI','COTRIEL','AGROVERDE','VALVIC'];
+const inactiveClients = ['CAMISC','SONHO MEU','COOPERABAETE','COOPERBOM','NICOLLETTI','COTRIEL','AGROVERDE','VALVIC'];
 const cgEl = document.getElementById('clients-grid');
 let sumActive=0, sumInactive=0, sumUnitsActive=0;
 
@@ -577,12 +577,12 @@ sortedClients.forEach(c => {
       <span class="client-card-val" style="color:${c.rollout>0?'#fbbf24':'var(--text)'};font-weight:400;">${c.rollout}</span>
     </div>
     <div class="client-card-row" style="margin-top:4px;">
-      <span class="client-card-label" style="color:#a8b4c8;">Estado(s)</span>
-      <span class="client-card-val" style="color:#dde3ef;font-weight:500;">${c.state}</span>
+      <span class="client-card-label" style="color:var(--text3);">Estado(s)</span>
+      <span class="client-card-val" style="color:var(--text2);font-weight:500;">${c.state}</span>
     </div>
     <div class="client-card-row">
-      <span class="client-card-label" style="color:#a8b4c8;">Região</span>
-      <span class="client-card-val" style="color:#dde3ef;font-weight:500;">${c.region}</span>
+      <span class="client-card-label" style="color:var(--text3);">Região</span>
+      <span class="client-card-val" style="color:var(--text2);font-weight:500;">${c.region}</span>
     </div>
     <div class="client-card-hint">clique para ver detalhes</div>
     <div class="client-status-bar"></div>`;
