@@ -465,10 +465,10 @@ const clients = [
   {name:'SANPETRO',    state:'Minas Gerais',            units: 2, pdv:null, impl:2, rollout:0, region:'Sudeste',
    info:{pista:'Vibra', conv:'Própria', adq:'—'},
    stateDetails:[{s:'Minas Gerais',u:2}]},
-  {name:'COAPIL',      state:'Goiás',                   units: 2, pdv:  0,  region:'Centro-Oeste',
+  {name:'COAPIL',      state:'Goiás',                   units: 2, pdv:  0,  impl:2, rollout:0, region:'Centro-Oeste',
    info:{pista:'Vibra', conv:'Própria', adq:'Cielo'},
    stateDetails:[{s:'Goiás',u:2}]},
-  {name:'COOPERBOM',   state:'Minas Gerais',            units: 2, pdv:null, impl:2, rollout:0, region:'Sudeste',
+  {name:'COOPERBOM',   state:'Minas Gerais',            units: 2, pdv:null, impl:0, rollout:2, region:'Sudeste',
    info:{pista:'—', conv:'—', adq:'—'},
    stateDetails:[{s:'Minas Gerais',u:2}]},
   {name:'CAMISC',      state:'Paraná',                  units: 2, pdv:null, impl:0, rollout:2, region:'Sul',
@@ -569,12 +569,12 @@ sortedClients.forEach(c => {
     <div class="client-units-label">unidades totais</div>
     <div class="client-divider"></div>
     <div class="client-card-row">
-      <span class="client-card-label" style="color:var(--text);font-weight:600;">Implantados</span>
-      <span class="client-card-val" style="color:${c.impl>0?'#4ade80':'var(--text)'};font-weight:600;">${c.impl}</span>
+      <span class="client-card-label" style="color:var(--text);font-weight:400;">Implantados</span>
+      <span class="client-card-val" style="color:${c.impl>0?'#4ade80':'var(--text)'};font-weight:400;">${c.impl}</span>
     </div>
     <div class="client-card-row">
-      <span class="client-card-label" style="color:var(--text);font-weight:600;">Aguard. rollout</span>
-      <span class="client-card-val" style="color:${c.rollout>0?'#fbbf24':'var(--text)'};font-weight:600;">${c.rollout}</span>
+      <span class="client-card-label" style="color:var(--text);font-weight:400;">Aguard. rollout</span>
+      <span class="client-card-val" style="color:${c.rollout>0?'#fbbf24':'var(--text)'};font-weight:400;">${c.rollout}</span>
     </div>
     <div class="client-card-row" style="margin-top:4px;">
       <span class="client-card-label" style="color:#a8b4c8;">Estado(s)</span>
@@ -592,7 +592,7 @@ sortedClients.forEach(c => {
 
 document.getElementById('sum-active').textContent = sumActive;
 document.getElementById('sum-inactive').textContent = sumInactive;
-document.getElementById('sum-units').textContent = sumUnitsActive;
+document.getElementById('sum-units').textContent = sortedClients.reduce((acc, c) => acc + (c.impl || 0), 0);
 
 /* ── MODAL ── */
 function openModal(c) {
