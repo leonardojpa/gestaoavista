@@ -211,6 +211,15 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .client-status-bar { height: 2px; border-radius: 0 0 var(--r) var(--r); margin: 10px -16px -16px; }
 .client-card.active .client-status-bar { background: rgba(74,222,128,0.4); }
 .client-card.inactive .client-status-bar { background: rgba(255,255,255,0.04); }
+.client-card.turning { background: var(--bg2); border: 1px solid rgba(251,191,36,0.4); border-left: 3px solid #fbbf24; }
+.client-card.turning:hover { border-color: rgba(251,191,36,0.6); }
+.client-card.turning .client-card-name { color: var(--text); }
+.client-card.turning .client-units { color: #fbbf24; }
+.client-card.turning .client-units-label { color: rgba(251,191,36,0.5); }
+.client-card.turning .client-divider { background: rgba(251,191,36,0.15); }
+.client-card.turning .client-card-hint { color: rgba(251,191,36,0.4); }
+.client-card.turning .client-status-bar { background: rgba(251,191,36,0.35); }
+.pill-turning { background: rgba(251,191,36,0.12); color: #fbbf24; border: 0.5px solid rgba(251,191,36,0.3); }
 .client-region-tag { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 500; align-self: flex-start; }
 
 /* ── MODAL ───────────────────────────────────────── */
@@ -319,12 +328,12 @@ footer {
   <div class="kpi-row">
     <div class="kpi blue">
       <div class="kpi-label">Unidades de postos</div>
-      <div class="kpi-val">235</div>
+      <div class="kpi-val">197</div>
       <div class="kpi-sub">total nacional</div>
     </div>
     <div class="kpi green">
       <div class="kpi-label">Clientes ativos</div>
-      <div class="kpi-val">21</div>
+      <div class="kpi-val">20</div>
       <div class="kpi-sub">com sistema implantado</div>
     </div>
     <div class="kpi purple">
@@ -335,7 +344,7 @@ footer {
     <div class="kpi amber">
       <div class="kpi-label">Maior concentração</div>
       <div class="kpi-val" style="font-size:20px;padding-top:5px;">Minas Gerais</div>
-      <div class="kpi-sub">52 unidades — 22,1%</div>
+      <div class="kpi-sub">52 unidades — 26,4%</div>
     </div>
   </div>
 
@@ -352,7 +361,7 @@ footer {
       <div class="donut-wrap">
         <canvas id="chartDonut"></canvas>
         <div class="donut-center">
-          <div class="donut-center-val">235</div>
+          <div class="donut-center-val">197</div>
           <div class="donut-center-label">unidades</div>
         </div>
       </div>
@@ -411,7 +420,7 @@ footer {
 /* ── DATA ── */
 const states = [
   {name:'Minas Gerais',        count:52, region:'Sudeste',      client:'JBRETAS / SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERABAETE'},
-  {name:'Santa Catarina',      count:43, region:'Sul',          client:'SONHO MEU / TRAPÉZIO'},
+  {name:'Santa Catarina',      count:5, region:'Sul',          client:'SONHO MEU / TRAPÉZIO'},
   {name:'Rio Grande do Sul',   count:41, region:'Sul',          client:'COTRIEL / VALVIC / TRAPÉZIO'},
   {name:'Paraná',              count:31, region:'Sul',          client:'TRAPÉZIO / CAMISC'},
   {name:'Mato Grosso',         count:13, region:'Centro-Oeste', client:'MIRIAN'},
@@ -429,18 +438,16 @@ const clients = [
   {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:60, pdv:null, impl:11, rollout:49, region:'Sul',
    info:{pista:'Ipiranga, Vibra, Shell', conv:'Ipiranga (AMPM), Vibra (BrMania), Shell (Select)', adq:'GetNet'},
    stateDetails:[{s:'Paraná',u:29,r:'Sul'},{s:'Rio Grande do Sul',u:22,r:'Sul'},{s:'Santa Catarina',u:5,r:'Sul'},{s:'São Paulo',u:4,r:'Sudeste'}]},
-  {name:'SONHO MEU',   state:'Santa Catarina',          units:38, pdv:null, impl:0, rollout:38, region:'Sul',
-   info:{pista:'Ipiranga, Vibra', conv:'Ipiranga (AMPM), Vibra (BrMania), Própria', adq:'Rede'},
-   stateDetails:[{s:'Santa Catarina',u:38}]},
-  {name:'JBRETAS',     state:'Minas Gerais',            units:32, pdv:null, impl:1, rollout:31, region:'Sudeste',
-   info:{pista:'Ipiranga', conv:'—', adq:'GetNet, Rede'},
-   stateDetails:[{s:'Minas Gerais',u:32}]},
   {name:'MIRIAN',      state:'MS / MT / PA / RO',      units:34, pdv:null, impl:1, rollout:33, region:'Centro-Oeste',
    info:{pista:'Ipiranga, Vibra', conv:'Vibra (BrMania)', adq:'Rede, GetNet, Cielo'},
    stateDetails:[{s:'Mato Grosso',u:13,r:'Centro-Oeste'},{s:'Rondônia',u:12,r:'Norte'},{s:'Mato Grosso do Sul',u:5,r:'Centro-Oeste'},{s:'Pará',u:4,r:'Norte'}]},
   {name:'VALVIC',      state:'Rio Grande do Sul',       units:14, pdv:null, impl:0, rollout:14, region:'Sul',
    info:{pista:'Bandeira Branca', conv:'—', adq:'Rede, GetNet'},
    stateDetails:[{s:'Rio Grande do Sul',u:14}]},
+
+  {name:'JBRETAS',     state:'Minas Gerais',            units:32, pdv:null, impl:1, rollout:31, region:'Sudeste',
+   info:{pista:'Ipiranga', conv:'—', adq:'GetNet, Rede'},
+   stateDetails:[{s:'Minas Gerais',u:32,r:'Sudeste'}]},
   {name:'DÉCIO',       state:'GO / MG / BA / SP / TO', units:15, pdv:null, impl:15, rollout:0, region:'Centro-Oeste',
    info:{pista:'Shell, Vibra', conv:'Vibra (BrMania), Própria', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:8,r:'Sudeste'},{s:'Goiás',u:4,r:'Centro-Oeste'},{s:'Bahia',u:1,r:'Nordeste'},{s:'São Paulo',u:1,r:'Sudeste'},{s:'Tocantins',u:1,r:'Norte'}]},
@@ -460,7 +467,7 @@ const clients = [
    info:{pista:'Shell', conv:'Shell (Select)', adq:'Cielo'},
    stateDetails:[{s:'Maranhão',u:4}]},
   {name:'CAPUL',       state:'Minas Gerais',            units: 2, pdv:null, impl:2, rollout:0, region:'Sudeste',
-   info:{pista:'Ipiranga', conv:'Não tem', adq:'Cielo'},
+   info:{pista:'Vibra', conv:'Não tem', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:2}]},
   {name:'SANPETRO',    state:'Minas Gerais',            units: 2, pdv:null, impl:2, rollout:0, region:'Sudeste',
    info:{pista:'Vibra', conv:'Própria', adq:'—'},
@@ -538,7 +545,7 @@ new Chart(document.getElementById('chartDonut'), {
 });
 const dlEl = document.getElementById('donut-legend');
 rKeys.forEach((k, i) => {
-  const pct = Math.round(rVals[i] / 235 * 100);
+  const pct = Math.round(rVals[i] / 197 * 100);
   dlEl.innerHTML += `<div class="dl-item">
     <span class="dl-swatch" style="background:${rColors[i]};"></span>
     ${k} <span class="dl-val">${rVals[i]}</span>
@@ -548,22 +555,27 @@ rKeys.forEach((k, i) => {
 
 
 /* ── CLIENT CARDS ── */
-const inactiveClients = ['CAMISC','SONHO MEU','COOPERABAETE','COOPERBOM','NICOLLETTI','COTRIEL','AGROVERDE','VALVIC'];
+const inactiveClients = ['CAMISC','COOPERBOM'];
+const turningClients = ['AGROVERDE','COOPERABAETE','COTRIEL','NICOLLETTI','VALVIC'];
 const cgEl = document.getElementById('clients-grid');
 let sumActive=0, sumInactive=0, sumUnitsActive=0;
 
 const sortedClients = [...clients].sort((a,b) => a.name.localeCompare(b.name, 'pt-BR'));
 
 sortedClients.forEach(c => {
-  const isActive = !inactiveClients.includes(c.name);
-  if(isActive){ sumActive++; sumUnitsActive+=c.units; } else sumInactive++;
+  const isActive = !inactiveClients.includes(c.name) && !turningClients.includes(c.name);
+  const isTurning = turningClients.includes(c.name);
+  if(isActive){ sumActive++; sumUnitsActive+=c.units; }
+  else if(isTurning){ sumActive++; sumUnitsActive+=c.units; }
+  else sumInactive++;
   const rd = rDef[c.region];
   const div = document.createElement('div');
-  div.className = 'client-card ' + (isActive ? 'active' : 'inactive');
+  const cardClass = isActive ? 'active' : isTurning ? 'turning' : 'inactive';
+  div.className = 'client-card ' + cardClass;
   div.innerHTML = `
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">
       <span class="client-card-name">${c.name}</span>
-      <span class="client-status-pill ${isActive?'pill-active':'pill-inactive'}">${isActive?'Ativo':'Implantação'}</span>
+      <span class="client-status-pill ${isActive?'pill-active':isTurning?'pill-turning':'pill-inactive'}">${isActive?'Go live':isTurning?'Em implantação':'Handover'}</span>
     </div>
     <div class="client-units">${c.units}</div>
     <div class="client-units-label">unidades totais</div>
