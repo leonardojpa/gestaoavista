@@ -6,6 +6,7 @@
 <title>Gestão à Vista</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
 :root {
   --bg:      #0c0f1a;
@@ -315,7 +316,7 @@ footer {
       <div class="brand-sub">Distribuição Geográfica de Postos</div>
     </div>
   </div>
-  <div class="header-meta">
+  <div class="header-meta topbar-right">
     <div class="chip live">● Ativo</div>
     <div class="chip" id="curr-date">—</div>
   </div>
@@ -328,23 +329,23 @@ footer {
   <div class="kpi-row">
     <div class="kpi blue">
       <div class="kpi-label">Unidades de postos</div>
-      <div class="kpi-val">197</div>
-      <div class="kpi-sub">total nacional</div>
+      <div class="kpi-val" id="kpi-total">165</div>
+      <div class="kpi-sub" id="kpi-total-sub">total nacional</div>
     </div>
     <div class="kpi green">
       <div class="kpi-label">Clientes ativos</div>
-      <div class="kpi-val">20</div>
+      <div class="kpi-val" id="kpi-clients">19</div>
       <div class="kpi-sub">com sistema implantado</div>
     </div>
     <div class="kpi purple">
       <div class="kpi-label">Estados atendidos</div>
-      <div class="kpi-val">13</div>
-      <div class="kpi-sub">5 regiões do Brasil</div>
+      <div class="kpi-val" id="kpi-states">13</div>
+      <div class="kpi-sub" id="kpi-states-sub">5 regiões do Brasil</div>
     </div>
     <div class="kpi amber">
       <div class="kpi-label">Maior concentração</div>
-      <div class="kpi-val" style="font-size:20px;padding-top:5px;">Minas Gerais</div>
-      <div class="kpi-sub">52 unidades — 26,4%</div>
+      <div class="kpi-val" id="kpi-top-state" style="font-size:20px;padding-top:5px;">Rio Grande do Sul</div>
+      <div class="kpi-sub" id="kpi-top-sub">41 unidades — 24,8%</div>
     </div>
   </div>
 
@@ -361,7 +362,7 @@ footer {
       <div class="donut-wrap">
         <canvas id="chartDonut"></canvas>
         <div class="donut-center">
-          <div class="donut-center-val">197</div>
+          <div class="donut-center-val">165</div>
           <div class="donut-center-label">unidades</div>
         </div>
       </div>
@@ -419,16 +420,16 @@ footer {
 <script>
 /* ── DATA ── */
 const states = [
-  {name:'Minas Gerais',        count:52, region:'Sudeste',      client:'JBRETAS / SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERABAETE'},
-  {name:'Santa Catarina',      count:5, region:'Sul',          client:'SONHO MEU / TRAPÉZIO'},
   {name:'Rio Grande do Sul',   count:41, region:'Sul',          client:'COTRIEL / VALVIC / TRAPÉZIO'},
   {name:'Paraná',              count:31, region:'Sul',          client:'TRAPÉZIO / CAMISC'},
+  {name:'Minas Gerais',        count:20, region:'Sudeste',      client:'SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERABAETE'},
   {name:'Mato Grosso',         count:13, region:'Centro-Oeste', client:'MIRIAN'},
   {name:'Rondônia',            count:12, region:'Norte',        client:'MIRIAN'},
   {name:'São Paulo',           count:10, region:'Sudeste',      client:'COOPERMOTA / TRAPÉZIO / DÉCIO'},
   {name:'Maranhão',            count:10, region:'Nordeste',     client:'LIMA / NICOLLETTI'},
   {name:'Goiás',               count: 7, region:'Centro-Oeste', client:'DÉCIO / NUTRIZA / COAPIL'},
   {name:'Bahia',               count: 6, region:'Nordeste',     client:'LARCO / DÉCIO'},
+  {name:'Santa Catarina',      count: 5, region:'Sul',          client:'TRAPÉZIO'},
   {name:'Mato Grosso do Sul',  count: 5, region:'Centro-Oeste', client:'MIRIAN'},
   {name:'Pará',                count: 4, region:'Norte',        client:'MIRIAN'},
   {name:'Tocantins',           count: 1, region:'Norte',        client:'DÉCIO'},
@@ -444,10 +445,6 @@ const clients = [
   {name:'VALVIC',      state:'Rio Grande do Sul',       units:14, pdv:null, impl:0, rollout:14, region:'Sul',
    info:{pista:'Bandeira Branca', conv:'—', adq:'Rede, GetNet'},
    stateDetails:[{s:'Rio Grande do Sul',u:14}]},
-
-  {name:'JBRETAS',     state:'Minas Gerais',            units:32, pdv:null, impl:1, rollout:31, region:'Sudeste',
-   info:{pista:'Ipiranga', conv:'—', adq:'GetNet, Rede'},
-   stateDetails:[{s:'Minas Gerais',u:32,r:'Sudeste'}]},
   {name:'DÉCIO',       state:'GO / MG / BA / SP / TO', units:15, pdv:null, impl:15, rollout:0, region:'Centro-Oeste',
    info:{pista:'Shell, Vibra', conv:'Vibra (BrMania), Própria', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:8,r:'Sudeste'},{s:'Goiás',u:4,r:'Centro-Oeste'},{s:'Bahia',u:1,r:'Nordeste'},{s:'São Paulo',u:1,r:'Sudeste'},{s:'Tocantins',u:1,r:'Norte'}]},
@@ -510,7 +507,104 @@ const rDef = {
 document.getElementById('curr-date').textContent =
   new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
 
-/* ── STATE BARS ── */
+/* ── RECALC ALL KPIs & CHARTS ── */
+let donutChart = null;
+
+function recalcAllKPIs(){
+  // 1. Recalc state totals from clients
+  const stateTotals = {};
+  clients.forEach(c => {
+    if(!c.stateDetails) return;
+    c.stateDetails.forEach(d => {
+      stateTotals[d.s] = (stateTotals[d.s]||0) + (c.units||0) / c.stateDetails.length;
+    });
+  });
+
+  // Use fixed state definitions but update counts from stateDetails
+  const stateCountMap = {};
+  clients.forEach(c => {
+    if(!c.stateDetails) return;
+    c.stateDetails.forEach(d => {
+      stateCountMap[d.s] = (stateCountMap[d.s]||0) + d.u;
+    });
+  });
+
+  // Update states array counts
+  states.forEach(s => {
+    if(stateCountMap[s.name] !== undefined) s.count = stateCountMap[s.name];
+  });
+
+  // 2. Sort states by count descending
+  states.sort((a,b) => b.count - a.count);
+
+  // 3. Total units
+  const total = states.reduce((acc,s) => acc + s.count, 0);
+
+  // 4. Top state
+  const topState = states[0];
+  const topPct = total > 0 ? Math.round(topState.count / total * 100 * 10)/10 : 0;
+
+  // 5. Regions
+  const regionSet = new Set(states.filter(s=>s.count>0).map(s=>s.region));
+  const statesWithUnits = states.filter(s=>s.count>0);
+
+  // 6. Active clients
+  const activeCount = clients.filter(c => c.status !== 'handover').length;
+  const totalImpl   = clients.reduce((acc,c) => acc + (c.impl||0), 0);
+
+  // Update KPI elements
+  document.getElementById('kpi-total').textContent     = total;
+  document.getElementById('kpi-clients').textContent   = activeCount;
+  document.getElementById('kpi-states').textContent    = statesWithUnits.length;
+  document.getElementById('kpi-states-sub').textContent= regionSet.size + ' regiões do Brasil';
+  document.getElementById('kpi-top-state').textContent = topState.name;
+  document.getElementById('kpi-top-sub').textContent   = topState.count + ' unidades — ' + topPct.toString().replace('.',',') + '%';
+  document.getElementById('donut-center-val').textContent = total;
+
+  // 7. Rebuild state bars
+  const sbEl = document.getElementById('state-bars');
+  sbEl.innerHTML = '';
+  const maxC = Math.max(...states.map(s=>s.count));
+  states.forEach(s => {
+    if(s.count === 0) return;
+    const pct = Math.round(s.count / maxC * 100);
+    const rd  = rDef[s.region];
+    sbEl.innerHTML += `<div class="state-item">
+      <span class="state-name">${s.name}</span>
+      <div class="state-track"><div class="state-fill" style="width:${pct}%;background:${rd.color};"></div></div>
+      <span class="state-num">${s.count}</span>
+      <span class="region-tag" style="background:${rd.bg};color:${rd.text};">${s.region}</span>
+    </div>`;
+  });
+
+  // 8. Rebuild donut
+  const regTotals = {};
+  states.forEach(s => { regTotals[s.region] = (regTotals[s.region]||0) + s.count; });
+  const rKeys2   = Object.keys(regTotals).filter(k=>regTotals[k]>0);
+  const rVals2   = rKeys2.map(k=>regTotals[k]);
+  const rColors2 = rKeys2.map(k=>rDef[k].color);
+
+  if(donutChart){
+    donutChart.data.labels   = rKeys2;
+    donutChart.data.datasets[0].data            = rVals2;
+    donutChart.data.datasets[0].backgroundColor = rColors2;
+    donutChart.update();
+  }
+
+  // Rebuild donut legend
+  const dlEl = document.getElementById('donut-legend');
+  dlEl.innerHTML = '';
+  rKeys2.forEach((k,i) => {
+    const pct2 = total > 0 ? Math.round(rVals2[i]/total*100) : 0;
+    dlEl.innerHTML += `<div class="dl-item">
+      <span class="dl-swatch" style="background:${rColors2[i]};"></span>
+      ${k} <span class="dl-val">${rVals2[i]}</span>
+      <span style="color:var(--text3);font-size:11px;">(${pct2}%)</span>
+    </div>`;
+  });
+}
+
+/* ── STATE BARS (initial render) ── */
 const maxCount = Math.max(...states.map(s => s.count));
 const sbEl = document.getElementById('state-bars');
 states.forEach(s => {
@@ -525,14 +619,14 @@ states.forEach(s => {
     </div>`;
 });
 
-/* ── DONUT ── */
+/* ── DONUT (initial render) ── */
 const regions = {};
 states.forEach(s => { regions[s.region] = (regions[s.region]||0) + s.count; });
 const rKeys  = Object.keys(regions);
 const rVals  = rKeys.map(k => regions[k]);
 const rColors = rKeys.map(k => rDef[k].color);
 
-new Chart(document.getElementById('chartDonut'), {
+donutChart = new Chart(document.getElementById('chartDonut'), {
   type: 'doughnut',
   data: { labels: rKeys, datasets: [{ data: rVals, backgroundColor: rColors, borderWidth: 0, hoverOffset: 5 }] },
   options: {
@@ -545,7 +639,7 @@ new Chart(document.getElementById('chartDonut'), {
 });
 const dlEl = document.getElementById('donut-legend');
 rKeys.forEach((k, i) => {
-  const pct = Math.round(rVals[i] / 197 * 100);
+  const pct = Math.round(rVals[i] / 165 * 100);
   dlEl.innerHTML += `<div class="dl-item">
     <span class="dl-swatch" style="background:${rColors[i]};"></span>
     ${k} <span class="dl-val">${rVals[i]}</span>
@@ -554,57 +648,67 @@ rKeys.forEach((k, i) => {
 });
 
 
+
+
 /* ── CLIENT CARDS ── */
 const inactiveClients = ['CAMISC','COOPERBOM'];
 const turningClients = ['AGROVERDE','COOPERABAETE','COTRIEL','NICOLLETTI','VALVIC'];
-const cgEl = document.getElementById('clients-grid');
-let sumActive=0, sumInactive=0, sumUnitsActive=0;
 
-const sortedClients = [...clients].sort((a,b) => a.name.localeCompare(b.name, 'pt-BR'));
+function renderCards(){
+  const cgEl = document.getElementById('clients-grid');
+  cgEl.innerHTML = '';
+  let sumActive=0, sumInactive=0, sumImpl=0;
+  const sorted = [...clients].sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
+  sorted.forEach(c => {
+    const isActive  = !inactiveClients.includes(c.name) && !turningClients.includes(c.name);
+    const isTurning = turningClients.includes(c.name);
+    const isHand    = inactiveClients.includes(c.name);
+    if(!isHand){ sumActive++; } else sumInactive++;
+    sumImpl += (c.impl||0);
+    const cardClass = isActive?'active':isTurning?'turning':'inactive';
+    const pillClass = isActive?'pill-active':isTurning?'pill-turning':'pill-inactive';
+    const pillLabel = isActive?'Go live':isTurning?'Em implantação':'Handover';
+    const implColor = c.impl>0?'#4ade80':'var(--text)';
+    const rollColor = c.rollout>0?'#fbbf24':'var(--text)';
+    const div = document.createElement('div');
+    div.className = 'client-card ' + cardClass;
+    div.innerHTML = `
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">
+        <span class="client-card-name">${c.name}</span>
+        <span class="client-status-pill ${pillClass}">${pillLabel}</span>
+      </div>
+      <div class="client-units">${c.units}</div>
+      <div class="client-units-label">unidades totais</div>
+      <div class="client-divider"></div>
+      <div class="client-card-row">
+        <span class="client-card-label" style="color:var(--text);font-weight:400;">Implantados</span>
+        <span class="client-card-val" style="color:${implColor};font-weight:400;">${c.impl}</span>
+      </div>
+      <div class="client-card-row">
+        <span class="client-card-label" style="color:var(--text);font-weight:400;">Aguard. rollout</span>
+        <span class="client-card-val" style="color:${rollColor};font-weight:400;">${c.rollout}</span>
+      </div>
+      <div class="client-card-row" style="margin-top:4px;">
+        <span class="client-card-label" style="color:var(--text3);">Estado(s)</span>
+        <span class="client-card-val" style="color:var(--text2);font-weight:500;">${c.state}</span>
+      </div>
+      <div class="client-card-row">
+        <span class="client-card-label" style="color:var(--text3);">Região</span>
+        <span class="client-card-val" style="color:var(--text2);font-weight:500;">${c.region}</span>
+      </div>
+      <div class="client-card-hint">clique para ver detalhes</div>
+      <div class="client-status-bar"></div>`;
+    div.addEventListener('click', () => openModal(c));
+    cgEl.appendChild(div);
+  });
+  document.getElementById('sum-active').textContent = sumActive;
+  document.getElementById('sum-inactive').textContent = sumInactive;
+  document.getElementById('sum-units').textContent = sumImpl;
+}
 
-sortedClients.forEach(c => {
-  const isActive = !inactiveClients.includes(c.name) && !turningClients.includes(c.name);
-  const isTurning = turningClients.includes(c.name);
-  if(isActive){ sumActive++; sumUnitsActive+=c.units; }
-  else if(isTurning){ sumActive++; sumUnitsActive+=c.units; }
-  else sumInactive++;
-  const rd = rDef[c.region];
-  const div = document.createElement('div');
-  const cardClass = isActive ? 'active' : isTurning ? 'turning' : 'inactive';
-  div.className = 'client-card ' + cardClass;
-  div.innerHTML = `
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">
-      <span class="client-card-name">${c.name}</span>
-      <span class="client-status-pill ${isActive?'pill-active':isTurning?'pill-turning':'pill-inactive'}">${isActive?'Go live':isTurning?'Em implantação':'Handover'}</span>
-    </div>
-    <div class="client-units">${c.units}</div>
-    <div class="client-units-label">unidades totais</div>
-    <div class="client-divider"></div>
-    <div class="client-card-row">
-      <span class="client-card-label" style="color:var(--text);font-weight:400;">Implantados</span>
-      <span class="client-card-val" style="color:${c.impl>0?'#4ade80':'var(--text)'};font-weight:400;">${c.impl}</span>
-    </div>
-    <div class="client-card-row">
-      <span class="client-card-label" style="color:var(--text);font-weight:400;">Aguard. rollout</span>
-      <span class="client-card-val" style="color:${c.rollout>0?'#fbbf24':'var(--text)'};font-weight:400;">${c.rollout}</span>
-    </div>
-    <div class="client-card-row" style="margin-top:4px;">
-      <span class="client-card-label" style="color:var(--text3);">Estado(s)</span>
-      <span class="client-card-val" style="color:var(--text2);font-weight:500;">${c.state}</span>
-    </div>
-    <div class="client-card-row">
-      <span class="client-card-label" style="color:var(--text3);">Região</span>
-      <span class="client-card-val" style="color:var(--text2);font-weight:500;">${c.region}</span>
-    </div>
-    <div class="client-card-hint">clique para ver detalhes</div>
-    <div class="client-status-bar"></div>`;
-  div.addEventListener('click', () => openModal(c));
-  cgEl.appendChild(div);
-});
+renderCards();
 
-document.getElementById('sum-active').textContent = sumActive;
-document.getElementById('sum-inactive').textContent = sumInactive;
-document.getElementById('sum-units').textContent = sortedClients.reduce((acc, c) => acc + (c.impl || 0), 0);
+
 
 /* ── MODAL ── */
 function openModal(c) {
