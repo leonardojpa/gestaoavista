@@ -329,12 +329,12 @@ footer {
   <div class="kpi-row">
     <div class="kpi blue">
       <div class="kpi-label">Unidades de postos</div>
-      <div class="kpi-val" id="kpi-total">165</div>
+      <div class="kpi-val" id="kpi-total">151</div>
       <div class="kpi-sub" id="kpi-total-sub">total nacional</div>
     </div>
     <div class="kpi green">
       <div class="kpi-label">Clientes ativos</div>
-      <div class="kpi-val" id="kpi-clients">19</div>
+      <div class="kpi-val" id="kpi-clients">17</div>
       <div class="kpi-sub">com sistema implantado</div>
     </div>
     <div class="kpi purple">
@@ -344,8 +344,8 @@ footer {
     </div>
     <div class="kpi amber">
       <div class="kpi-label">Maior concentração</div>
-      <div class="kpi-val" id="kpi-top-state" style="font-size:20px;padding-top:5px;">Rio Grande do Sul</div>
-      <div class="kpi-sub" id="kpi-top-sub">41 unidades — 24,8%</div>
+      <div class="kpi-val" id="kpi-top-state" style="font-size:20px;padding-top:5px;">Paraná</div>
+      <div class="kpi-sub" id="kpi-top-sub">37 unidades — 24,5%</div>
     </div>
   </div>
 
@@ -362,7 +362,7 @@ footer {
       <div class="donut-wrap">
         <canvas id="chartDonut"></canvas>
         <div class="donut-center">
-          <div class="donut-center-val">165</div>
+          <div class="donut-center-val">151</div>
           <div class="donut-center-label">unidades</div>
         </div>
       </div>
@@ -420,31 +420,28 @@ footer {
 <script>
 /* ── DATA ── */
 const states = [
-  {name:'Rio Grande do Sul',   count:41, region:'Sul',          client:'COTRIEL / VALVIC / TRAPÉZIO'},
-  {name:'Paraná',              count:31, region:'Sul',          client:'TRAPÉZIO / CAMISC'},
+  {name:'Paraná',              count:37, region:'Sul',          client:'TRAPÉZIO / CAMISC'},
+  {name:'Rio Grande do Sul',   count:27, region:'Sul',          client:'COTRIEL / TRAPÉZIO'},
   {name:'Minas Gerais',        count:20, region:'Sudeste',      client:'SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERABAETE'},
   {name:'Mato Grosso',         count:13, region:'Centro-Oeste', client:'MIRIAN'},
   {name:'Rondônia',            count:12, region:'Norte',        client:'MIRIAN'},
   {name:'São Paulo',           count:10, region:'Sudeste',      client:'COOPERMOTA / TRAPÉZIO / DÉCIO'},
-  {name:'Maranhão',            count:10, region:'Nordeste',     client:'LIMA / NICOLLETTI'},
   {name:'Goiás',               count: 7, region:'Centro-Oeste', client:'DÉCIO / NUTRIZA / COAPIL'},
   {name:'Bahia',               count: 6, region:'Nordeste',     client:'LARCO / DÉCIO'},
   {name:'Santa Catarina',      count: 5, region:'Sul',          client:'TRAPÉZIO'},
   {name:'Mato Grosso do Sul',  count: 5, region:'Centro-Oeste', client:'MIRIAN'},
+  {name:'Maranhão',            count: 4, region:'Nordeste',     client:'LIMA'},
   {name:'Pará',                count: 4, region:'Norte',        client:'MIRIAN'},
   {name:'Tocantins',           count: 1, region:'Norte',        client:'DÉCIO'},
 ];
 
 const clients = [
-  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:60, pdv:null, impl:11, rollout:49, region:'Sul',
+  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:66, pdv:null, impl:18, rollout:48, region:'Sul',
    info:{pista:'Ipiranga, Vibra, Shell', conv:'Ipiranga (AMPM), Vibra (BrMania), Shell (Select)', adq:'GetNet'},
-   stateDetails:[{s:'Paraná',u:29,r:'Sul'},{s:'Rio Grande do Sul',u:22,r:'Sul'},{s:'Santa Catarina',u:5,r:'Sul'},{s:'São Paulo',u:4,r:'Sudeste'}]},
+   stateDetails:[{s:'Paraná',u:35,r:'Sul'},{s:'Rio Grande do Sul',u:22,r:'Sul'},{s:'Santa Catarina',u:5,r:'Sul'},{s:'São Paulo',u:4,r:'Sudeste'}]},
   {name:'MIRIAN',      state:'MS / MT / PA / RO',      units:34, pdv:null, impl:1, rollout:33, region:'Centro-Oeste',
    info:{pista:'Ipiranga, Vibra', conv:'Vibra (BrMania)', adq:'Rede, GetNet, Cielo'},
    stateDetails:[{s:'Mato Grosso',u:13,r:'Centro-Oeste'},{s:'Rondônia',u:12,r:'Norte'},{s:'Mato Grosso do Sul',u:5,r:'Centro-Oeste'},{s:'Pará',u:4,r:'Norte'}]},
-  {name:'VALVIC',      state:'Rio Grande do Sul',       units:14, pdv:null, impl:0, rollout:14, region:'Sul',
-   info:{pista:'Bandeira Branca', conv:'—', adq:'Rede, GetNet'},
-   stateDetails:[{s:'Rio Grande do Sul',u:14}]},
   {name:'DÉCIO',       state:'GO / MG / BA / SP / TO', units:15, pdv:null, impl:15, rollout:0, region:'Centro-Oeste',
    info:{pista:'Shell, Vibra', conv:'Vibra (BrMania), Própria', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:8,r:'Sudeste'},{s:'Goiás',u:4,r:'Centro-Oeste'},{s:'Bahia',u:1,r:'Nordeste'},{s:'São Paulo',u:1,r:'Sudeste'},{s:'Tocantins',u:1,r:'Norte'}]},
@@ -457,9 +454,6 @@ const clients = [
   {name:'LARCO',       state:'Bahia',                   units: 5, pdv:  2,  impl:5, rollout:0, region:'Nordeste',
    info:{pista:'Bandeira Própria', conv:'Própria', adq:'Cielo'},
    stateDetails:[{s:'Bahia',u:5}]},
-  {name:'NICOLLETTI',  state:'Maranhão',                units: 6, pdv:null, impl:0, rollout:6, region:'Nordeste',
-   info:{pista:'Bandeira Ipiranga, Vibra', conv:'Ipiranga (AMPM), Própria', adq:'Rede, Cielo'},
-   stateDetails:[{s:'Maranhão',u:6}]},
   {name:'LIMA',        state:'Maranhão',                units: 4, pdv: 16,  impl:4, rollout:0, region:'Nordeste',
    info:{pista:'Shell', conv:'Shell (Select)', adq:'Cielo'},
    stateDetails:[{s:'Maranhão',u:4}]},
@@ -639,7 +633,7 @@ donutChart = new Chart(document.getElementById('chartDonut'), {
 });
 const dlEl = document.getElementById('donut-legend');
 rKeys.forEach((k, i) => {
-  const pct = Math.round(rVals[i] / 165 * 100);
+  const pct = Math.round(rVals[i] / 151 * 100);
   dlEl.innerHTML += `<div class="dl-item">
     <span class="dl-swatch" style="background:${rColors[i]};"></span>
     ${k} <span class="dl-val">${rVals[i]}</span>
@@ -652,7 +646,7 @@ rKeys.forEach((k, i) => {
 
 /* ── CLIENT CARDS ── */
 const inactiveClients = ['CAMISC','COOPERBOM'];
-const turningClients = ['AGROVERDE','COOPERABAETE','COTRIEL','NICOLLETTI','VALVIC'];
+const turningClients = ['AGROVERDE','COOPERABAETE','COTRIEL'];
 
 function renderCards(){
   const cgEl = document.getElementById('clients-grid');
