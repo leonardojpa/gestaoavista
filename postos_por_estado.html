@@ -329,7 +329,7 @@ footer {
   <div class="kpi-row">
     <div class="kpi blue">
       <div class="kpi-label">Unidades de postos</div>
-      <div class="kpi-val" id="kpi-total">151</div>
+      <div class="kpi-val" id="kpi-total">153</div>
       <div class="kpi-sub" id="kpi-total-sub">total nacional</div>
     </div>
     <div class="kpi green">
@@ -345,7 +345,7 @@ footer {
     <div class="kpi amber">
       <div class="kpi-label">Maior concentração</div>
       <div class="kpi-val" id="kpi-top-state" style="font-size:20px;padding-top:5px;">Paraná</div>
-      <div class="kpi-sub" id="kpi-top-sub">37 unidades — 24,5%</div>
+      <div class="kpi-sub" id="kpi-top-sub">39 unidades — 25,5%</div>
     </div>
   </div>
 
@@ -362,7 +362,7 @@ footer {
       <div class="donut-wrap">
         <canvas id="chartDonut"></canvas>
         <div class="donut-center">
-          <div class="donut-center-val">151</div>
+          <div class="donut-center-val">153</div>
           <div class="donut-center-label">unidades</div>
         </div>
       </div>
@@ -420,7 +420,7 @@ footer {
 <script>
 /* ── DATA ── */
 const states = [
-  {name:'Paraná',              count:37, region:'Sul',          client:'TRAPÉZIO / CAMISC'},
+  {name:'Paraná',              count:39, region:'Sul',          client:'TRAPÉZIO / CAMISC'},
   {name:'Rio Grande do Sul',   count:27, region:'Sul',          client:'COTRIEL / TRAPÉZIO'},
   {name:'Minas Gerais',        count:20, region:'Sudeste',      client:'SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERABAETE'},
   {name:'Mato Grosso',         count:13, region:'Centro-Oeste', client:'MIRIAN'},
@@ -436,7 +436,7 @@ const states = [
 ];
 
 const clients = [
-  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:66, pdv:null, impl:18, rollout:48, region:'Sul',
+  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:66, pdv:null, impl:30, rollout:36, region:'Sul',
    info:{pista:'Ipiranga, Vibra, Shell', conv:'Ipiranga (AMPM), Vibra (BrMania), Shell (Select)', adq:'GetNet'},
    stateDetails:[{s:'Paraná',u:35,r:'Sul'},{s:'Rio Grande do Sul',u:22,r:'Sul'},{s:'Santa Catarina',u:5,r:'Sul'},{s:'São Paulo',u:4,r:'Sudeste'}]},
   {name:'MIRIAN',      state:'MS / MT / PA / RO',      units:34, pdv:null, impl:1, rollout:33, region:'Centro-Oeste',
@@ -469,9 +469,9 @@ const clients = [
   {name:'COOPERBOM',   state:'Minas Gerais',            units: 2, pdv:null, impl:0, rollout:2, region:'Sudeste',
    info:{pista:'—', conv:'—', adq:'—'},
    stateDetails:[{s:'Minas Gerais',u:2}]},
-  {name:'CAMISC',      state:'Paraná',                  units: 2, pdv:null, impl:0, rollout:2, region:'Sul',
+  {name:'CAMISC',      state:'Paraná',                  units: 4, pdv:null, impl:0, rollout:4, region:'Sul',
    info:{pista:'—', conv:'—', adq:'—'},
-   stateDetails:[{s:'Paraná',u:2}]},
+   stateDetails:[{s:'Paraná',u:4}]},
   {name:'NUTRIZA',     state:'Goiás',                   units: 1, pdv:  2,  impl:1, rollout:0, region:'Centro-Oeste',
    info:{pista:'Vibra', conv:'Terceirizada', adq:'Cielo'},
    stateDetails:[{s:'Goiás',u:1}]},
@@ -633,7 +633,7 @@ donutChart = new Chart(document.getElementById('chartDonut'), {
 });
 const dlEl = document.getElementById('donut-legend');
 rKeys.forEach((k, i) => {
-  const pct = Math.round(rVals[i] / 151 * 100);
+  const pct = Math.round(rVals[i] / 153 * 100);
   dlEl.innerHTML += `<div class="dl-item">
     <span class="dl-swatch" style="background:${rColors[i]};"></span>
     ${k} <span class="dl-val">${rVals[i]}</span>
@@ -645,8 +645,8 @@ rKeys.forEach((k, i) => {
 
 
 /* ── CLIENT CARDS ── */
-const inactiveClients = ['CAMISC','COOPERBOM'];
-const turningClients = ['AGROVERDE','COOPERABAETE','COTRIEL'];
+const inactiveClients = [];
+const turningClients = ['AGROVERDE','COOPERABAETE','COTRIEL','CAMISC','COOPERBOM'];
 
 function renderCards(){
   const cgEl = document.getElementById('clients-grid');
