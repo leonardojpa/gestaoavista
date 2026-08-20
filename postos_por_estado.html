@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!D
+OCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -329,23 +330,23 @@ footer {
   <div class="kpi-row">
     <div class="kpi blue">
       <div class="kpi-label">Unidades de postos</div>
-      <div class="kpi-val" id="kpi-total">153</div>
+      <div class="kpi-val" id="kpi-total">121</div>
       <div class="kpi-sub" id="kpi-total-sub">total nacional</div>
     </div>
     <div class="kpi green">
       <div class="kpi-label">Clientes ativos</div>
-      <div class="kpi-val" id="kpi-clients">17</div>
+      <div class="kpi-val" id="kpi-clients">18</div>
       <div class="kpi-sub">com sistema implantado</div>
     </div>
     <div class="kpi purple">
       <div class="kpi-label">Estados atendidos</div>
-      <div class="kpi-val" id="kpi-states">13</div>
+      <div class="kpi-val" id="kpi-states">9</div>
       <div class="kpi-sub" id="kpi-states-sub">5 regiões do Brasil</div>
     </div>
     <div class="kpi amber">
       <div class="kpi-label">Maior concentração</div>
       <div class="kpi-val" id="kpi-top-state" style="font-size:20px;padding-top:5px;">Paraná</div>
-      <div class="kpi-sub" id="kpi-top-sub">39 unidades — 25,5%</div>
+      <div class="kpi-sub" id="kpi-top-sub">39 unidades — 32,2%</div>
     </div>
   </div>
 
@@ -362,7 +363,7 @@ footer {
       <div class="donut-wrap">
         <canvas id="chartDonut"></canvas>
         <div class="donut-center">
-          <div class="donut-center-val">153</div>
+          <div class="donut-center-val">121</div>
           <div class="donut-center-label">unidades</div>
         </div>
       </div>
@@ -423,25 +424,18 @@ const states = [
   {name:'Paraná',              count:39, region:'Sul',          client:'TRAPÉZIO / CAMISC'},
   {name:'Rio Grande do Sul',   count:27, region:'Sul',          client:'COTRIEL / TRAPÉZIO'},
   {name:'Minas Gerais',        count:20, region:'Sudeste',      client:'SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERABAETE'},
-  {name:'Mato Grosso',         count:13, region:'Centro-Oeste', client:'MIRIAN'},
-  {name:'Rondônia',            count:12, region:'Norte',        client:'MIRIAN'},
-  {name:'São Paulo',           count:10, region:'Sudeste',      client:'COOPERMOTA / TRAPÉZIO / DÉCIO'},
-  {name:'Goiás',               count: 7, region:'Centro-Oeste', client:'DÉCIO / NUTRIZA / COAPIL'},
+  {name:'São Paulo',           count:11, region:'Sudeste',      client:'COOPERMOTA / TRAPÉZIO / DÉCIO / 3R LOGÍSTICA'},
+  {name:'Goiás',               count: 8, region:'Centro-Oeste', client:'DÉCIO / NUTRIZA / COAPIL / GRUPO AMORIM'},
   {name:'Bahia',               count: 6, region:'Nordeste',     client:'LARCO / DÉCIO'},
   {name:'Santa Catarina',      count: 5, region:'Sul',          client:'TRAPÉZIO'},
-  {name:'Mato Grosso do Sul',  count: 5, region:'Centro-Oeste', client:'MIRIAN'},
   {name:'Maranhão',            count: 4, region:'Nordeste',     client:'LIMA'},
-  {name:'Pará',                count: 4, region:'Norte',        client:'MIRIAN'},
   {name:'Tocantins',           count: 1, region:'Norte',        client:'DÉCIO'},
 ];
 
 const clients = [
-  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:66, pdv:null, impl:30, rollout:36, region:'Sul',
+  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:66, pdv:null, impl:53, rollout:13, region:'Sul',
    info:{pista:'Ipiranga, Vibra, Shell', conv:'Ipiranga (AMPM), Vibra (BrMania), Shell (Select)', adq:'GetNet'},
    stateDetails:[{s:'Paraná',u:35,r:'Sul'},{s:'Rio Grande do Sul',u:22,r:'Sul'},{s:'Santa Catarina',u:5,r:'Sul'},{s:'São Paulo',u:4,r:'Sudeste'}]},
-  {name:'MIRIAN',      state:'MS / MT / PA / RO',      units:34, pdv:null, impl:1, rollout:33, region:'Centro-Oeste',
-   info:{pista:'Ipiranga, Vibra', conv:'Vibra (BrMania)', adq:'Rede, GetNet, Cielo'},
-   stateDetails:[{s:'Mato Grosso',u:13,r:'Centro-Oeste'},{s:'Rondônia',u:12,r:'Norte'},{s:'Mato Grosso do Sul',u:5,r:'Centro-Oeste'},{s:'Pará',u:4,r:'Norte'}]},
   {name:'DÉCIO',       state:'GO / MG / BA / SP / TO', units:15, pdv:null, impl:15, rollout:0, region:'Centro-Oeste',
    info:{pista:'Shell, Vibra', conv:'Vibra (BrMania), Própria', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:8,r:'Sudeste'},{s:'Goiás',u:4,r:'Centro-Oeste'},{s:'Bahia',u:1,r:'Nordeste'},{s:'São Paulo',u:1,r:'Sudeste'},{s:'Tocantins',u:1,r:'Norte'}]},
@@ -487,6 +481,12 @@ const clients = [
   {name:'COOPERABAETE', state:'Minas Gerais',            units: 3, pdv:null, impl:0, rollout:3, region:'Sudeste',
    info:{pista:'—', conv:'—', adq:'—'},
    stateDetails:[{s:'Minas Gerais',u:3}]},
+  {name:'3R LOGÍSTICA', state:'São Paulo',               units: 1, pdv:null, impl:0, rollout:1, region:'Sudeste',
+   info:{pista:'—', conv:'—', adq:'—'},
+   stateDetails:[{s:'São Paulo',u:1,r:'Sudeste'}]},
+  {name:'GRUPO AMORIM', state:'Goiás',                   units: 1, pdv:null, impl:0, rollout:1, region:'Centro-Oeste',
+   info:{pista:'—', conv:'—', adq:'—'},
+   stateDetails:[{s:'Goiás',u:1,r:'Centro-Oeste'}]}
 ];
 
 const rDef = {
@@ -633,7 +633,7 @@ donutChart = new Chart(document.getElementById('chartDonut'), {
 });
 const dlEl = document.getElementById('donut-legend');
 rKeys.forEach((k, i) => {
-  const pct = Math.round(rVals[i] / 153 * 100);
+  const pct = Math.round(rVals[i] / 121 * 100);
   dlEl.innerHTML += `<div class="dl-item">
     <span class="dl-swatch" style="background:${rColors[i]};"></span>
     ${k} <span class="dl-val">${rVals[i]}</span>
@@ -646,7 +646,7 @@ rKeys.forEach((k, i) => {
 
 /* ── CLIENT CARDS ── */
 const inactiveClients = [];
-const turningClients = ['AGROVERDE','COOPERABAETE','COTRIEL','CAMISC','COOPERBOM'];
+const turningClients = ['AGROVERDE','COOPERABAETE','COTRIEL','CAMISC','COOPERBOM','3R LOGÍSTICA','GRUPO AMORIM'];
 
 function renderCards(){
   const cgEl = document.getElementById('clients-grid');
