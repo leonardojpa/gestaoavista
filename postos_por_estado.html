@@ -298,6 +298,31 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .card    { animation-delay: 0.12s; }
 .clients-grid { animation-delay: 0.18s; }
 
+
+/* ── NAV TABS ─────────────────────────────────────── */
+.nav-tabs { display:flex; gap:0; padding:0 36px; border-bottom:1px solid var(--border); background:var(--bg2); }
+.nav-tab { font-size:13px; padding:12px 20px; border:none; background:transparent; color:var(--text2); cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; white-space:nowrap; }
+.nav-tab:hover:not(.active) { color:var(--text); }
+.nav-tab.active { color:var(--text); border-bottom-color:var(--accent); }
+.tab-page { display:none; }
+.tab-page.active { display:block; }
+
+/* ── CNPJ PAGES ───────────────────────────────────── */
+.cnpj-page { padding:24px 36px 48px; }
+.cnpj-search-bar { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
+.cnpj-search-input { flex:1; min-width:200px; font-size:13px; padding:8px 12px; border-radius:var(--r-sm); border:0.5px solid var(--border2); background:var(--bg3); color:var(--text); outline:none; }
+.cnpj-search-input::placeholder { color:var(--text3); }
+.cnpj-filter-select { font-size:12px; padding:8px 10px; border-radius:var(--r-sm); border:0.5px solid var(--border2); background:var(--bg3); color:var(--text2); }
+.cnpj-group-block { margin-bottom:22px; }
+.cnpj-group-header { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.cnpj-group-name { font-size:13px; font-weight:500; color:var(--text); }
+.cnpj-group-count { font-size:11px; color:var(--text3); background:var(--bg3); border:0.5px solid var(--border); border-radius:999px; padding:1px 8px; }
+.cnpj-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:6px; }
+.cnpj-row { background:var(--bg3); border:0.5px solid var(--border); border-radius:var(--r-sm); padding:10px 14px; display:flex; align-items:center; gap:10px; }
+.cnpj-name { font-size:12px; color:var(--text2); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.cnpj-code { font-family:var(--mono); font-size:12px; color:var(--accent); flex-shrink:0; }
+.cnpj-state { font-size:10px; padding:2px 6px; border-radius:4px; background:var(--bg4); color:var(--text3); flex-shrink:0; }
+
 /* ── FOOTER ──────────────────────────────────────── */
 footer {
   text-align: center; padding: 24px;
@@ -324,6 +349,13 @@ footer {
 </header>
 
 <!-- MAIN -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showTab('gestao',this)">Gestão à Vista</button>
+  <button class="nav-tab" onclick="showTab('cnpjs-posto',this)">CNPJs Posto</button>
+  <button class="nav-tab" onclick="showTab('cnpjs-mercado',this)">CNPJs Mercado</button>
+</div>
+
+<div id="tab-gestao" class="tab-page active">
 <main>
 
   <!-- KPIs -->
@@ -397,6 +429,7 @@ footer {
   <div class="clients-grid" id="clients-grid"></div>
 
 </main>
+</div>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
@@ -433,7 +466,7 @@ const states = [
 ];
 
 const clients = [
-  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:66, pdv:null, impl:53, rollout:13, region:'Sul',
+  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:66, pdv:null, impl:56, rollout:10, region:'Sul',
    info:{pista:'Ipiranga, Vibra, Shell', conv:'Ipiranga (AMPM), Vibra (BrMania), Shell (Select)', adq:'GetNet'},
    stateDetails:[{s:'Paraná',u:35,r:'Sul'},{s:'Rio Grande do Sul',u:22,r:'Sul'},{s:'Santa Catarina',u:5,r:'Sul'},{s:'São Paulo',u:4,r:'Sudeste'}]},
   {name:'DÉCIO',       state:'GO / MG / BA / SP / TO', units:15, pdv:null, impl:15, rollout:0, region:'Centro-Oeste',
@@ -766,5 +799,203 @@ function closeModal(e) {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
 </script>
+
+<div id="tab-cnpjs-posto" class="tab-page">
+  <div class="cnpj-page">
+    <div class="cnpj-search-bar">
+      <input class="cnpj-search-input" type="text" id="search-posto" placeholder="Buscar por nome ou CNPJ..." oninput="renderPosto()">
+      <select class="cnpj-filter-select" id="filter-posto" onchange="renderPosto()">
+        <option value="">Todos os grupos</option>
+        <option>Capul</option><option>Coapil</option><option>Coopel</option>
+        <option>Coopermota</option><option>Cooprata</option><option>Décio</option>
+        <option>Larco</option><option>Lima</option><option>Nutriza</option>
+        <option>Sanpetro</option><option>Trapézio</option>
+      </select>
+    </div>
+    <div id="list-posto"></div>
+  </div>
+</div>
+
+<div id="tab-cnpjs-mercado" class="tab-page">
+  <div class="cnpj-page">
+    <div class="cnpj-group-block">
+      <div class="cnpj-group-header">
+        <span class="cnpj-group-name">Coapil</span>
+        <span class="cnpj-group-count">1 mercado</span>
+      </div>
+      <div class="cnpj-grid">
+        <div class="cnpj-row">
+          <span class="cnpj-name">SUPERMERCADO COAPIL</span>
+          <span class="cnpj-code">02.447.928/0005-78</span>
+          <span class="cnpj-state">GO</span>
+        </div>
+      </div>
+    </div>
+    <div class="cnpj-group-block">
+      <div class="cnpj-group-header">
+        <span class="cnpj-group-name">Coopel</span>
+        <span class="cnpj-group-count">1 mercado</span>
+      </div>
+      <div class="cnpj-grid">
+        <div class="cnpj-row">
+          <span class="cnpj-name">COOPERATIVA AGRO PECUARIA DE POMPEU LTDA - MERCADO</span>
+          <span class="cnpj-code">23.778.434/0003-84</span>
+          <span class="cnpj-state">MG</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── CNPJ DATA ── */
+function fmtCnpj(v){ v=v.replace(/\D/g,''); return v.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5'); }
+
+const postos = [
+  {g:'Décio',     n:'DECIO BARREIRAS',                                             c:'19046218004526',s:'BA'},
+  {g:'Larco',     n:'POSTO SAO JOAO COM DE COMBUSTIVEIS E LUB LTDA',               c:'14889644000197',s:'BA'},
+  {g:'Larco',     n:'POSTO ILPRES COM DE COMBUSTIVEIS E LUBR LTDA',                c:'10905163000177',s:'BA'},
+  {g:'Larco',     n:'POSTO LARCO COM DE COMBUSTIVEIS E LUBR LTDA',                 c:'12943173000122',s:'BA'},
+  {g:'Larco',     n:'POSTO VIDA NOVA COMERCIO DE COMBUSTIVEIS E LUBRIFICANTES LTDA',c:'13698181000113',s:'BA'},
+  {g:'Décio',     n:'DECIO MINEIROS',                                              c:'19046218004011',s:'GO'},
+  {g:'Nutriza',   n:'AUTO POSTO GT LTDA',                                          c:'08666015000103',s:'GO'},
+  {g:'Décio',     n:'DECIO PIRANHAS',                                              c:'19046218006650',s:'GO'},
+  {g:'Décio',     n:'DECIO CEZARINA',                                              c:'19046218005336',s:'GO'},
+  {g:'Coapil',    n:'AUTO POSTO COAPIL II',                                        c:'02447928001205',s:'GO'},
+  {g:'Coapil',    n:'AUTO POSTO COAPIL',                                           c:'02447928000225',s:'GO'},
+  {g:'Décio',     n:'DECIO RIO VERDE',                                             c:'19046218002159',s:'GO'},
+  {g:'Lima',      n:'LIMA COMERCIAL DE COMBUSTIVEIS LTDA - MARACANA TIRIRICAL',    c:'69418101000345',s:'MA'},
+  {g:'Lima',      n:'LIMA COMERCIAL DE COMBUSTIVEIS LTDA - MARACANA COHAB',        c:'69418101000183',s:'MA'},
+  {g:'Lima',      n:'LIMA COMERCIAL DE COMBUSTIVEIS LTDA - MARACANA SAO LUIS',     c:'69418101000264',s:'MA'},
+  {g:'Lima',      n:'LIMA COMERCIAL DE COMBUSTIVEIS LTDA - MARACANA ALTO ALEGRE',  c:'69418101000426',s:'MA'},
+  {g:'Décio',     n:'DECIO ARAPORA',                                               c:'19046218001187',s:'MG'},
+  {g:'Décio',     n:'DECIO BURITI',                                                c:'19046218001004',s:'MG'},
+  {g:'Sanpetro',  n:'AUTO POSTO SANTANA LTDA - FILIAL',                            c:'18658732000210',s:'MG'},
+  {g:'Décio',     n:'DECIO CAMPINA VERDE',                                         c:'19046218001268',s:'MG'},
+  {g:'Décio',     n:'DECIO ITUIUTABA',                                             c:'19046218000105',s:'MG'},
+  {g:'Capul',     n:'POSTO CAPUL - ARINOS',                                        c:'25834847001689',s:'MG'},
+  {g:'Coopel',    n:'COOPERATIVA AGRO PECUARIA DE POMPEU LTDA - POSTO',            c:'23778434000465',s:'MG'},
+  {g:'Capul',     n:'COOPERATIVA AGROPECUARIA UNAI LTDA - POSTO CAPUL',            c:'25834847000445',s:'MG'},
+  {g:'Sanpetro',  n:'AUTO POSTO SANTANA LTDA - MATRIZ',                            c:'18658732000139',s:'MG'},
+  {g:'Cooprata',  n:'COOPERATIVA DOS PRODUTORES RURAIS DO PRATA LTDA',             c:'24021677001570',s:'MG'},
+  {g:'Décio',     n:'DECIO CENTRALINA',                                            c:'19046218002310',s:'MG'},
+  {g:'Décio',     n:'DECIO PARADA BONITA',                                         c:'19046218000962',s:'MG'},
+  {g:'Décio',     n:'DECIO UBERLANDIA',                                            c:'19046218001772',s:'MG'},
+  {g:'Décio',     n:'DECIO OLHOS DAGUA',                                           c:'19046218002582',s:'MG'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 024',                             c:'11393320002461',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 003',                                c:'38824625000302',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 019',                             c:'11393320001902',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 013',                             c:'11393320001309',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 013',                                c:'38824625001384',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 007',                                c:'38824625000736',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 030',                                c:'38824625003085',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 023',                                c:'38824625002356',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 015',                                c:'38824625001546',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 011',                             c:'11393320001147',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO MARECHAL S/A',                                     c:'34331407000113',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO PETRO TRIANGULO LTDA',                             c:'06272541000155',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO PETRO IZAAC LTDA',                                 c:'02682740000180',s:'PR'},
+  {g:'Trapézio',  n:'POSTO METROPOLE BRASIL LTDA',                                 c:'30275160000104',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 010',                                c:'38824625001031',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 016',                                c:'38824625001627',s:'PR'},
+  {g:'Trapézio',  n:'POSTO TIJUCAS LTDA',                                          c:'23975331000142',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 031',                                c:'38824625003166',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO TS LTDA',                                          c:'78289055000150',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO AMERICA LTDA',                                     c:'04488277000166',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 022',                                c:'38824625002275',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO ALPHAVILLE LTDA',                                  c:'05365568000120',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 029',                                c:'38824625002941',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 08',                                 c:'38824625000817',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 006',                                c:'38824625000655',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO PREMIERE LTDA',                                    c:'07879799000187',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - MATRIZ',                             c:'38824625000140',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO ALFA LTDA',                                        c:'20244903000125',s:'PR'},
+  {g:'Trapézio',  n:'POSTO METROPOLE NSA LTDA',                                    c:'26335150000140',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 001',                             c:'11393320000175',s:'PR'},
+  {g:'Trapézio',  n:'POSTO METROPOLE CISNE LTDA',                                  c:'31307182000171',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 002',                                c:'38824625000221',s:'PR'},
+  {g:'Trapézio',  n:'AUTO POSTO RIO VERDE LTDA',                                   c:'25390970000171',s:'PR'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 024',                                c:'38824625002437',s:'RS'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 018',                                c:'38824625001899',s:'RS'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 007',                             c:'11393320000760',s:'RS'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 006',                             c:'11393320000680',s:'RS'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 003',                             c:'11393320000337',s:'RS'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 012',                             c:'11393320001228',s:'RS'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 017',                             c:'11393320001732',s:'RS'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 020',                                c:'38824625002003',s:'RS'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 004',                             c:'11393320000418',s:'RS'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 026',                                c:'38824625002607',s:'RS'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 011',                                c:'38824625001112',s:'RS'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 017',                                c:'38824625001708',s:'RS'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 005',                             c:'11393320000507',s:'RS'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 018',                             c:'11393320001813',s:'RS'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 009',                             c:'11393320000922',s:'RS'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 025',                                c:'38824625002518',s:'RS'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 021',                                c:'38824625002194',s:'RS'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 015',                             c:'11393320001570',s:'RS'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 027',                                c:'38824625002780',s:'RS'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 008',                             c:'11393320000841',s:'RS'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 004',                                c:'38824625000493',s:'RS'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 014',                             c:'11393320001490',s:'RS'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 005',                                c:'38824625000574',s:'RS'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 028',                                c:'38824625002860',s:'SC'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 002',                             c:'11393320000256',s:'SC'},
+  {g:'Trapézio',  n:'ABASTECEDORA DE COMBUSTIVEIS DOM AFONSO LTDA',                c:'44212848000150',s:'SC'},
+  {g:'Trapézio',  n:'POSTO LINHA VERDE LTDA - 014',                                c:'38824625001465',s:'SC'},
+  {g:'Trapézio',  n:'WC POSTOS LTDA',                                              c:'24613173000143',s:'SC'},
+  {g:'Trapézio',  n:'AUTO POSTO ALMIRANTE LTDA - 016',                             c:'11393320001651',s:'SC'},
+  {g:'Trapézio',  n:'AUTO POSTO MIRANTE DE PIRACICABA LTDA',                       c:'13785941000120',s:'SP'},
+  {g:'Coopermota',n:'COOPERMOTA COOPERATIVA AGROINDUSTRIAL - CANDIDO MOTA - POSTO I',c:'46844338002689',s:'SP'},
+  {g:'Décio',     n:'DECIO PRESIDENTE VENCESLAU',                                  c:'19046218005093',s:'SP'},
+  {g:'Coopermota',n:'COOPERMOTA COOPERATIVA AGROINDUSTRIAL - RIB. SUL - POSTO IV', c:'46844338003650',s:'SP'},
+  {g:'Trapézio',  n:'AUTO POSTO BEIRA RIO PORTO FELIZ LTDA',                       c:'74222167000133',s:'SP'},
+  {g:'Trapézio',  n:'AUTO POSTO ESTAIADA LTDA',                                    c:'29127813000129',s:'SP'},
+  {g:'Trapézio',  n:'AUTO POSTO NENINHA BEMBA LTDA',                               c:'08712167000197',s:'SP'},
+  {g:'Trapézio',  n:'AUTO POSTO VILA RESENDE LTDA',                                c:'22890433000100',s:'SP'},
+  {g:'Coopermota',n:'COOPERMOTA COOPERATIVA AGROINDUSTRIAL - CAMPOS NOVOS PTA - POSTO V',c:'46844338004460',s:'SP'},
+  {g:'Trapézio',  n:'SUPER POSTO TOF LTDA',                                        c:'48632285000100',s:'SP'},
+  {g:'Coopermota',n:'COOPERMOTA COOPERATIVA AGROINDUSTRIAL - MARACAI - POSTO III', c:'46844338002840',s:'SP'},
+  {g:'Coopermota',n:'COOPERMOTA COOPERATIVA AGROINDUSTRIAL - PALMITAL - POSTO II', c:'46844338002506',s:'SP'},
+  {g:'Décio',     n:'DECIO GURUPI 2',                                              c:'19046218006065',s:'TO'},
+  {g:'Décio',     n:'DECIO GURUPI',                                                c:'06698533000175',s:'TO'},
+];
+
+function renderPosto(){
+  const q   = (document.getElementById('search-posto').value||'').toLowerCase();
+  const grp = document.getElementById('filter-posto').value;
+  const filtered = postos.filter(d=>{
+    const mg = !grp || d.g===grp;
+    const ms = !q || d.n.toLowerCase().includes(q) || fmtCnpj(d.c).includes(q) || d.g.toLowerCase().includes(q) || d.s.toLowerCase().includes(q);
+    return mg && ms;
+  });
+  const byG={};
+  filtered.forEach(d=>{ if(!byG[d.g]) byG[d.g]=[]; byG[d.g].push(d); });
+  const list = document.getElementById('list-posto');
+  list.innerHTML='';
+  Object.keys(byG).sort().forEach(gr=>{
+    const items=byG[gr];
+    const block=document.createElement('div'); block.className='cnpj-group-block';
+    block.innerHTML=`<div class="cnpj-group-header">
+      <span class="cnpj-group-name">${gr}</span>
+      <span class="cnpj-group-count">${items.length} posto${items.length>1?'s':''}</span>
+    </div>
+    <div class="cnpj-grid">${items.map(d=>`
+      <div class="cnpj-row">
+        <span class="cnpj-name" title="${d.n}">${d.n}</span>
+        <span class="cnpj-code">${fmtCnpj(d.c)}</span>
+        <span class="cnpj-state">${d.s}</span>
+      </div>`).join('')}</div>`;
+    list.appendChild(block);
+  });
+}
+
+function showTab(id, el){
+  document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  el.classList.add('active');
+}
+
+renderPosto();
+</script>
 </body>
-</html>
