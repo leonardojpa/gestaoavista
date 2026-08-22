@@ -10,19 +10,19 @@ OCTYPE html>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
 :root {
-  --bg:      #0c0f1a;
-  --bg2:     #111520;
-  --bg3:     #181d2e;
-  --bg4:     #1e2438;
-  --border:  rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.13);
-  --text:    #eef0f8;
-  --text2:   #7e8aa0;
-  --text3:   #3e4a60;
-  --accent:  #4f8ef7;
-  --green:   #4ade80;
-  --amber:   #fbbf24;
-  --purple:  #a78bfa;
+  --bg:      #f0eef5;
+  --bg2:     #ffffff;
+  --bg3:     #f7f5fa;
+  --bg4:     #ede9f3;
+  --border:  rgba(123,47,190,0.10);
+  --border2: rgba(123,47,190,0.18);
+  --text:    #1a0f2e;
+  --text2:   #5a4e72;
+  --text3:   #9b8fb0;
+  --accent:  #7B2FBE;
+  --green:   #7B2FBE;
+  --amber:   #F5761A;
+  --purple:  #E8354D;
   --coral:   #fb7185;
   --teal:    #2dd4bf;
   --font:    'DM Sans', sans-serif;
@@ -60,7 +60,7 @@ header {
   background: var(--bg3); border: 1px solid var(--border2);
   border-radius: 6px; padding: 5px 11px; white-space: nowrap;
 }
-.chip.live { color: var(--green); border-color: rgba(74,222,128,0.25); background: rgba(74,222,128,0.07); }
+.chip.live { color: #7B2FBE; border-color: rgba(123,47,190,0.25); background: rgba(123,47,190,0.07); }
 
 /* ── MAIN ────────────────────────────────────────── */
 main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
@@ -74,16 +74,16 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .kpi::after {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
 }
-.kpi.blue::after   { background: var(--accent); }
-.kpi.green::after  { background: var(--green); }
-.kpi.purple::after { background: var(--purple); }
-.kpi.amber::after  { background: var(--amber); }
+.kpi.blue::after   { background: #7B2FBE; }
+.kpi.green::after  { background: #E8354D; }
+.kpi.purple::after { background: #7B2FBE; }
+.kpi.amber::after  { background: #F5761A; }
 .kpi-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 8px; }
 .kpi-val   { font-size: 30px; font-weight: 600; line-height: 1; }
-.kpi.blue   .kpi-val { color: var(--accent); }
-.kpi.green  .kpi-val { color: var(--green); }
-.kpi.purple .kpi-val { color: var(--purple); }
-.kpi.amber  .kpi-val { color: var(--amber); }
+.kpi.blue   .kpi-val { color: #7B2FBE; }
+.kpi.green  .kpi-val { color: #E8354D; }
+.kpi.purple .kpi-val { color: #7B2FBE; }
+.kpi.amber  .kpi-val { color: #F5761A; }
 .kpi-sub { font-size: 11px; color: var(--text3); margin-top: 5px; }
 
 /* ── GRID ────────────────────────────────────────── */
@@ -179,13 +179,13 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .modal-total span { font-family: var(--mono); color: var(--text2); font-size: 13px; }
 .modal-state-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .modal-state-row:last-child { margin-bottom: 0; }
-.modal-state-name { font-size: 13px; color: #c8d0e0; width: 160px; flex-shrink: 0; }
+.modal-state-name { font-size: 13px; color: #5a4e72; width: 160px; flex-shrink: 0; }
 .modal-bar-bg { flex: 1; height: 8px; background: var(--bg4); border-radius: 4px; overflow: hidden; }
 .modal-bar-fg { height: 100%; border-radius: 4px; }
 .modal-state-num { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); width: 24px; text-align: right; flex-shrink: 0; }
 .client-card { cursor: pointer; transition: border-color 0.15s, transform 0.15s; border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 0; }
 .client-card:hover { transform: translateY(-2px); }
-.client-card.active { background: var(--bg2); border: 1px solid #4ade80; border-left: 3px solid #4ade80; }
+.client-card.active { background: var(--bg2); border: 0.5px solid rgba(123,47,190,0.25); border-left: 3px solid #7B2FBE; }
 .client-card.inactive { background: var(--bg3); border: 1px solid var(--border); opacity: 0.45; }
 .client-card.active:hover { border-color: #4ade80; }
 .client-card.inactive:hover { border-color: var(--border2); }
@@ -194,34 +194,34 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .client-card.inactive .client-card-name { color: var(--text3); }
 .client-status-pill { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 500; white-space: nowrap; align-self: flex-start; margin-bottom: 10px; margin-top: 4px; }
 .pill-active { background: rgba(74,222,128,0.12); color: #4ade80; border: 1px solid rgba(74,222,128,0.25); }
-.pill-inactive { background: rgba(255,255,255,0.04); color: var(--text3); border: 1px solid var(--border); }
+.pill-inactive { background: var(--bg4); color: var(--text3); border: 0.5px solid var(--border); }
 .client-units { font-size: 30px; font-weight: 500; line-height: 1; margin-bottom: 2px; }
-.client-card.active .client-units { color: #4ade80; }
+.client-card.active .client-units { color: #7B2FBE; }
 .client-card.inactive .client-units { color: var(--text3); }
 .client-units-label { font-size: 11px; margin-bottom: 12px; }
-.client-card.active .client-units-label { color: rgba(74,222,128,0.6); }
+.client-card.active .client-units-label { color: rgba(123,47,190,0.45); }
 .client-card.inactive .client-units-label { color: var(--text3); }
 .client-divider { height: 1px; margin-bottom: 10px; }
-.client-card.active .client-divider { background: rgba(74,222,128,0.15); }
+.client-card.active .client-divider { background: rgba(123,47,190,0.12); }
 .client-card.inactive .client-divider { background: var(--border); }
 .client-card-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
 .client-card-row:last-of-type { margin-bottom: 0; }
 .client-card-label { font-size: 11px; color: var(--text3); }
 .client-card-val { font-size: 11px; color: var(--text2); text-align: right; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .client-card-hint { font-size: 10px; color: var(--text3); margin-top: 10px; }
-.client-card.active .client-card-hint { color: rgba(74,222,128,0.5); }
+.client-card.active .client-card-hint { color: rgba(123,47,190,0.35); }
 .client-status-bar { height: 2px; border-radius: 0 0 var(--r) var(--r); margin: 10px -16px -16px; }
-.client-card.active .client-status-bar { background: rgba(74,222,128,0.4); }
+.client-card.active .client-status-bar { background: rgba(123,47,190,0.2); }
 .client-card.inactive .client-status-bar { background: rgba(255,255,255,0.04); }
-.client-card.turning { background: var(--bg2); border: 1px solid rgba(251,191,36,0.4); border-left: 3px solid #fbbf24; }
-.client-card.turning:hover { border-color: rgba(251,191,36,0.6); }
+.client-card.turning { background: var(--bg2); border: 0.5px solid rgba(245,118,26,0.25); border-left: 3px solid #F5761A; }
+.client-card.turning:hover { border-color: rgba(245,118,26,0.45); }
 .client-card.turning .client-card-name { color: var(--text); }
-.client-card.turning .client-units { color: #fbbf24; }
-.client-card.turning .client-units-label { color: rgba(251,191,36,0.5); }
-.client-card.turning .client-divider { background: rgba(251,191,36,0.15); }
-.client-card.turning .client-card-hint { color: rgba(251,191,36,0.4); }
-.client-card.turning .client-status-bar { background: rgba(251,191,36,0.35); }
-.pill-turning { background: rgba(251,191,36,0.12); color: #fbbf24; border: 0.5px solid rgba(251,191,36,0.3); }
+.client-card.turning .client-units { color: #F5761A; }
+.client-card.turning .client-units-label { color: rgba(245,118,26,0.45); }
+.client-card.turning .client-divider { background: rgba(245,118,26,0.12); }
+.client-card.turning .client-card-hint { color: rgba(245,118,26,0.35); }
+.client-card.turning .client-status-bar { background: rgba(245,118,26,0.2); }
+.pill-turning { background: rgba(245,118,26,0.08); color: #F5761A; border: 0.5px solid rgba(245,118,26,0.25); }
 .client-region-tag { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 500; align-self: flex-start; }
 
 /* ── MODAL ───────────────────────────────────────── */
@@ -267,7 +267,7 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .modal-total span { font-family: var(--mono); color: var(--text); font-size: 15px; font-weight: 600; }
 .modal-state-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .modal-state-row:last-child { margin-bottom: 0; }
-.modal-state-name { font-size: 13px; color: #c8d0e0; width: 160px; flex-shrink: 0; }
+.modal-state-name { font-size: 13px; color: #5a4e72; width: 160px; flex-shrink: 0; }
 .modal-bar-bg { flex: 1; height: 8px; background: var(--bg4); border-radius: 4px; overflow: hidden; }
 .modal-bar-fg { height: 100%; border-radius: 4px; }
 .modal-state-num { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); width: 24px; text-align: right; flex-shrink: 0; }
@@ -275,12 +275,12 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .client-card:hover .client-card-hint { color: var(--accent); }
 .modal-info { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
 .modal-info-row { display: flex; gap: 10px; align-items: flex-start; }
-.modal-info-label { font-size: 11px; color: #8892a4; text-transform: uppercase; letter-spacing: 0.07em; width: 90px; flex-shrink: 0; padding-top: 2px; }
-.modal-info-val { font-size: 12.5px; color: #dde3ef; flex: 1; line-height: 1.5; }
-.modal-section-title { font-size: 11px; font-weight: 600; color: #8892a4; text-transform: uppercase; letter-spacing: 0.1em; margin: 14px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.modal-info-label { font-size: 11px; color: #9b8fb0; text-transform: uppercase; letter-spacing: 0.07em; width: 90px; flex-shrink: 0; padding-top: 2px; }
+.modal-info-val { font-size: 12.5px; color: #1a0f2e; flex: 1; line-height: 1.5; }
+.modal-section-title { font-size: 11px; font-weight: 600; color: #9b8fb0; text-transform: uppercase; letter-spacing: 0.1em; margin: 14px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
 .modal-info-row { display: flex; gap: 10px; align-items: flex-start; }
-.modal-info-label { font-size: 11px; color: #8892a4; text-transform: uppercase; letter-spacing: 0.07em; width: 90px; flex-shrink: 0; padding-top: 1px; }
-.modal-info-val { font-size: 12.5px; color: #dde3ef; flex: 1; line-height: 1.5; }
+.modal-info-label { font-size: 11px; color: #9b8fb0; text-transform: uppercase; letter-spacing: 0.07em; width: 90px; flex-shrink: 0; padding-top: 1px; }
+.modal-info-val { font-size: 12.5px; color: #1a0f2e; flex: 1; line-height: 1.5; }
 .modal-info-val.highlight { color: var(--text); }
 .modal-divider { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin: 14px 0 10px; display: flex; align-items: center; gap: 8px; }
 .modal-divider::before { content:''; flex:1; height:1px; background: var(--border); }
@@ -311,17 +311,17 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .cnpj-page { padding:24px 36px 48px; }
 .cnpj-search-bar { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
 .cnpj-search-input { flex:1; min-width:200px; font-size:13px; padding:8px 12px; border-radius:var(--r-sm); border:0.5px solid var(--border2); background:var(--bg3); color:var(--text); outline:none; }
-.cnpj-search-input::placeholder { color:var(--text3); }
+.cnpj-search-input::placeholder { color:#9b8fb0; }
 .cnpj-filter-select { font-size:12px; padding:8px 10px; border-radius:var(--r-sm); border:0.5px solid var(--border2); background:var(--bg3); color:var(--text2); }
 .cnpj-group-block { margin-bottom:22px; }
 .cnpj-group-header { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
 .cnpj-group-name { font-size:13px; font-weight:500; color:var(--text); }
-.cnpj-group-count { font-size:11px; color:var(--text3); background:var(--bg3); border:0.5px solid var(--border); border-radius:999px; padding:1px 8px; }
+.cnpj-group-count { font-size:11px; color:#9b8fb0; background:var(--bg3); border:0.5px solid var(--border); border-radius:999px; padding:1px 8px; }
 .cnpj-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:6px; }
 .cnpj-row { background:var(--bg3); border:0.5px solid var(--border); border-radius:var(--r-sm); padding:10px 14px; display:flex; align-items:center; gap:10px; }
 .cnpj-name { font-size:12px; color:var(--text2); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .cnpj-code { font-family:var(--mono); font-size:12px; color:var(--accent); flex-shrink:0; }
-.cnpj-state { font-size:10px; padding:2px 6px; border-radius:4px; background:var(--bg4); color:var(--text3); flex-shrink:0; }
+.cnpj-state { font-size:10px; padding:2px 6px; border-radius:4px; background:var(--bg4); color:#9b8fb0; flex-shrink:0; }
 
 /* ── FOOTER ──────────────────────────────────────── */
 footer {
@@ -351,8 +351,8 @@ footer {
 <!-- MAIN -->
 <div class="nav-tabs">
   <button class="nav-tab active" onclick="showTab('gestao',this)">Gestão à Vista</button>
-  <button class="nav-tab" onclick="showTab('cnpjs-posto',this)">CNPJs Posto</button>
-  <button class="nav-tab" onclick="showTab('cnpjs-mercado',this)">CNPJs Mercado</button>
+  <button class="nav-tab" onclick="showTab('cnpjs-posto',this)">CNPJs Postos Ativos</button>
+  <button class="nav-tab" onclick="showTab('cnpjs-mercado',this)">CNPJs Mercados Ativos</button>
 </div>
 
 <div id="tab-gestao" class="tab-page active">
@@ -362,7 +362,7 @@ footer {
   <div class="kpi-row">
     <div class="kpi blue">
       <div class="kpi-label">Unidades de postos</div>
-      <div class="kpi-val" id="kpi-total">121</div>
+      <div class="kpi-val" id="kpi-total">123</div>
       <div class="kpi-sub" id="kpi-total-sub">total nacional</div>
     </div>
     <div class="kpi green">
@@ -378,7 +378,7 @@ footer {
     <div class="kpi amber">
       <div class="kpi-label">Maior concentração</div>
       <div class="kpi-val" id="kpi-top-state" style="font-size:20px;padding-top:5px;">Paraná</div>
-      <div class="kpi-sub" id="kpi-top-sub">39 unidades — 32,2%</div>
+      <div class="kpi-sub" id="kpi-top-sub">37 unidades — 30,1%</div>
     </div>
   </div>
 
@@ -395,7 +395,7 @@ footer {
       <div class="donut-wrap">
         <canvas id="chartDonut"></canvas>
         <div class="donut-center">
-          <div class="donut-center-val">121</div>
+          <div class="donut-center-val">123</div>
           <div class="donut-center-label">unidades</div>
         </div>
       </div>
@@ -413,16 +413,16 @@ footer {
     </div>
     <div style="display:flex;gap:20px;align-items:center;">
       <div style="text-align:center;">
-        <div style="font-size:20px;font-weight:500;color:#4ade80;" id="sum-active">0</div>
-        <div style="font-size:11px;color:var(--text3);">ativos</div>
+        <div style="font-size:20px;font-weight:500;color:#7B2FBE;" id="sum-active">0</div>
+        <div style="font-size:11px;color:#9b8fb0;">ativos</div>
       </div>
       <div style="text-align:center;">
-        <div style="font-size:20px;font-weight:500;color:var(--text3);" id="sum-inactive">0</div>
-        <div style="font-size:11px;color:var(--text3);">em implantação</div>
+        <div style="font-size:20px;font-weight:500;color:#9b8fb0;" id="sum-inactive">0</div>
+        <div style="font-size:11px;color:#9b8fb0;">em implantação</div>
       </div>
       <div style="text-align:center;">
         <div style="font-size:20px;font-weight:500;color:var(--text);" id="sum-units">0</div>
-        <div style="font-size:11px;color:var(--text3);">unidades ativas</div>
+        <div style="font-size:11px;color:#9b8fb0;">unidades ativas</div>
       </div>
     </div>
   </div>
@@ -448,27 +448,27 @@ footer {
 </div>
 
 <footer>
-  Gestão à Vista &nbsp;·&nbsp; Dados extraídos de Gestão_a_Vista_Projetos.xlsx
+  
 </footer>
 
 <script>
 /* ── DATA ── */
 const states = [
-  {name:'Paraná',              count:39, region:'Sul',          client:'TRAPÉZIO / CAMISC'},
-  {name:'Rio Grande do Sul',   count:27, region:'Sul',          client:'COTRIEL / TRAPÉZIO'},
-  {name:'Minas Gerais',        count:20, region:'Sudeste',      client:'SANPETRO / CAPUL / AGROVERDE / COOPEL / COOPRATA / DÉCIO / COOPERBOM / COOPERABAETE'},
-  {name:'São Paulo',           count:11, region:'Sudeste',      client:'COOPERMOTA / TRAPÉZIO / DÉCIO / 3R LOGÍSTICA'},
-  {name:'Goiás',               count: 8, region:'Centro-Oeste', client:'DÉCIO / NUTRIZA / COAPIL / GRUPO AMORIM'},
-  {name:'Bahia',               count: 6, region:'Nordeste',     client:'LARCO / DÉCIO'},
-  {name:'Santa Catarina',      count: 5, region:'Sul',          client:'TRAPÉZIO'},
-  {name:'Maranhão',            count: 4, region:'Nordeste',     client:'LIMA'},
-  {name:'Tocantins',           count: 1, region:'Norte',        client:'DÉCIO'},
+  {name:'Paraná',              count:37, region:'Sul',         client:'TRAPÉZIO / CAMISC'},
+  {name:'Rio Grande do Sul',   count:28, region:'Sul',         client:'TRAPÉZIO / COTRIEL'},
+  {name:'Minas Gerais',        count:20, region:'Sudeste',     client:'DÉCIO / CAPUL / SANPETRO / COOPEL / COOPRATA / COOPERBOM / COOPERABAETE / AGROVERDE'},
+  {name:'São Paulo',           count:13, region:'Sudeste',     client:'TRAPÉZIO / COOPERMOTA / DÉCIO / 3R LOGÍSTICA'},
+  {name:'Goiás',               count: 8, region:'Centro-Oeste',client:'DÉCIO / COAPIL / NUTRIZA / GRUPO AMORIM'},
+  {name:'Bahia',               count: 6, region:'Nordeste',    client:'LARCO / DÉCIO'},
+  {name:'Santa Catarina',      count: 6, region:'Sul',         client:'TRAPÉZIO'},
+  {name:'Maranhão',            count: 4, region:'Nordeste',    client:'LIMA'},
+  {name:'Tocantins',           count: 1, region:'Norte',       client:'DÉCIO'},
 ];
 
 const clients = [
-  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:66, pdv:null, impl:56, rollout:10, region:'Sul',
+  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:68, pdv:null, impl:56, rollout:10, region:'Sul',
    info:{pista:'Ipiranga, Vibra, Shell', conv:'Ipiranga (AMPM), Vibra (BrMania), Shell (Select)', adq:'GetNet'},
-   stateDetails:[{s:'Paraná',u:35,r:'Sul'},{s:'Rio Grande do Sul',u:22,r:'Sul'},{s:'Santa Catarina',u:5,r:'Sul'},{s:'São Paulo',u:4,r:'Sudeste'}]},
+   stateDetails:[{s:'Paraná',u:33,r:'Sul'},{s:'Rio Grande do Sul',u:23,r:'Sul'},{s:'Santa Catarina',u:6,r:'Sul'},{s:'São Paulo',u:6,r:'Sudeste'}]},
   {name:'DÉCIO',       state:'GO / MG / BA / SP / TO', units:15, pdv:null, impl:15, rollout:0, region:'Centro-Oeste',
    info:{pista:'Shell, Vibra', conv:'Vibra (BrMania), Própria', adq:'Cielo'},
    stateDetails:[{s:'Minas Gerais',u:8,r:'Sudeste'},{s:'Goiás',u:4,r:'Centro-Oeste'},{s:'Bahia',u:1,r:'Nordeste'},{s:'São Paulo',u:1,r:'Sudeste'},{s:'Tocantins',u:1,r:'Norte'}]},
@@ -523,11 +523,11 @@ const clients = [
 ];
 
 const rDef = {
-  'Sul':          {color:'#4f8ef7', bg:'rgba(79,142,247,0.15)',  text:'#7eb4ff'},
-  'Sudeste':      {color:'#a78bfa', bg:'rgba(167,139,250,0.15)', text:'#c4adff'},
-  'Centro-Oeste': {color:'#2dd4bf', bg:'rgba(45,212,191,0.15)',  text:'#5ee8d8'},
-  'Norte':        {color:'#fbbf24', bg:'rgba(251,191,36,0.15)',  text:'#fcd25a'},
-  'Nordeste':     {color:'#fb7185', bg:'rgba(251,113,133,0.15)', text:'#fd9aaa'},
+  'Sul':          {color:'#7B2FBE', bg:'rgba(123,47,190,0.08)',  text:'#7B2FBE'},
+  'Sudeste':      {color:'#E8354D', bg:'rgba(232,53,77,0.08)',   text:'#E8354D'},
+  'Centro-Oeste': {color:'#F5761A', bg:'rgba(245,118,26,0.08)',  text:'#F5761A'},
+  'Norte':        {color:'#9B59B6', bg:'rgba(155,89,182,0.08)',  text:'#9B59B6'},
+  'Nordeste':     {color:'#C0392B', bg:'rgba(192,57,43,0.08)',   text:'#C0392B'},
 };
 
 /* ── DATE ── */
@@ -626,7 +626,7 @@ function recalcAllKPIs(){
     dlEl.innerHTML += `<div class="dl-item">
       <span class="dl-swatch" style="background:${rColors2[i]};"></span>
       ${k} <span class="dl-val">${rVals2[i]}</span>
-      <span style="color:var(--text3);font-size:11px;">(${pct2}%)</span>
+      <span style="color:#9b8fb0;font-size:11px;">(${pct2}%)</span>
     </div>`;
   });
 }
@@ -666,11 +666,11 @@ donutChart = new Chart(document.getElementById('chartDonut'), {
 });
 const dlEl = document.getElementById('donut-legend');
 rKeys.forEach((k, i) => {
-  const pct = Math.round(rVals[i] / 121 * 100);
+  const pct = Math.round(rVals[i] / 123 * 100);
   dlEl.innerHTML += `<div class="dl-item">
     <span class="dl-swatch" style="background:${rColors[i]};"></span>
     ${k} <span class="dl-val">${rVals[i]}</span>
-    <span style="color:var(--text3);font-size:11px;">(${pct}%)</span>
+    <span style="color:#9b8fb0;font-size:11px;">(${pct}%)</span>
   </div>`;
 });
 
@@ -716,12 +716,12 @@ function renderCards(){
         <span class="client-card-val" style="color:${rollColor};font-weight:400;">${c.rollout}</span>
       </div>
       <div class="client-card-row" style="margin-top:4px;">
-        <span class="client-card-label" style="color:var(--text3);">Estado(s)</span>
-        <span class="client-card-val" style="color:var(--text2);font-weight:500;">${c.state}</span>
+        <span class="client-card-label" style="color:#9b8fb0;">Estado(s)</span>
+        <span class="client-card-val" style="color:#5a4e72;font-weight:500;">${c.state}</span>
       </div>
       <div class="client-card-row">
-        <span class="client-card-label" style="color:var(--text3);">Região</span>
-        <span class="client-card-val" style="color:var(--text2);font-weight:500;">${c.region}</span>
+        <span class="client-card-label" style="color:#9b8fb0;">Região</span>
+        <span class="client-card-val" style="color:#5a4e72;font-weight:500;">${c.region}</span>
       </div>
       <div class="client-card-hint">clique para ver detalhes</div>
       <div class="client-status-bar"></div>`;
@@ -857,6 +857,7 @@ const postos = [
   {g:'Larco',     n:'POSTO ILPRES COM DE COMBUSTIVEIS E LUBR LTDA',                c:'10905163000177',s:'BA'},
   {g:'Larco',     n:'POSTO LARCO COM DE COMBUSTIVEIS E LUBR LTDA',                 c:'12943173000122',s:'BA'},
   {g:'Larco',     n:'POSTO VIDA NOVA COMERCIO DE COMBUSTIVEIS E LUBRIFICANTES LTDA',c:'13698181000113',s:'BA'},
+  {g:'Larco',     n:'POSTO SEREIA COMERCIO DE COMBUSTIVEIS E LUBRIFICANTES LTDA',  c:'13505714000101',s:'BA'},
   {g:'Décio',     n:'DECIO MINEIROS',                                              c:'19046218004011',s:'GO'},
   {g:'Nutriza',   n:'AUTO POSTO GT LTDA',                                          c:'08666015000103',s:'GO'},
   {g:'Décio',     n:'DECIO PIRANHAS',                                              c:'19046218006650',s:'GO'},
@@ -957,7 +958,6 @@ const postos = [
   {g:'Coopermota',n:'COOPERMOTA COOPERATIVA AGROINDUSTRIAL - MARACAI - POSTO III', c:'46844338002840',s:'SP'},
   {g:'Coopermota',n:'COOPERMOTA COOPERATIVA AGROINDUSTRIAL - PALMITAL - POSTO II', c:'46844338002506',s:'SP'},
   {g:'Décio',     n:'DECIO GURUPI 2',                                              c:'19046218006065',s:'TO'},
-  {g:'Décio',     n:'DECIO GURUPI',                                                c:'06698533000175',s:'TO'},
 ];
 
 function renderPosto(){
