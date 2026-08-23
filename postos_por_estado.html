@@ -90,6 +90,58 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
 @media (max-width: 780px) { .grid2 { grid-template-columns: 1fr; } }
 
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  header { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
+  header img { height: 28px !important; }
+  .header-meta { gap: 6px; }
+  .chip { font-size: 10px; padding: 3px 8px; }
+
+  .nav-tabs { padding: 10px 12px; gap: 4px; overflow-x: auto; flex-wrap: nowrap; }
+  .nav-tab { font-size: 11px; padding: 6px 12px; white-space: nowrap; flex-shrink: 0; }
+
+  main { padding: 16px 12px 40px; }
+
+  .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 16px; }
+  .kpi { padding: 12px; }
+  .kpi-val { font-size: 22px; }
+  .kpi-val[style*="font-size:20px"] { font-size: 14px !important; }
+
+  .section-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .clients-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .client-card { padding: 12px; }
+  .client-units { font-size: 24px; }
+
+  .grid2 { grid-template-columns: 1fr; }
+  .card { padding: 14px; }
+  .card-title { font-size: 11px; }
+
+  .state-item { gap: 6px; }
+  .state-name { width: 100px; font-size: 11px; }
+  .state-num { font-size: 11px; }
+  .region-tag { display: none; }
+
+  .donut-wrap { height: 160px; }
+  .donut-legend { gap: 6px 10px; }
+
+  .cnpj-page { padding: 16px 12px; }
+  .cnpj-search-bar { flex-direction: column; }
+  .cnpj-search-input { min-width: unset; }
+  .cnpj-grid { grid-template-columns: 1fr; }
+  .cnpj-row { flex-wrap: wrap; gap: 4px; }
+  .cnpj-name { width: 100%; white-space: normal; font-size: 11px; }
+
+  .modal { padding: 16px; margin: 0 8px; }
+  .modal-state-name { width: 110px; font-size: 12px; }
+
+  .sum-row { gap: 12px; }
+}
+
+@media (max-width: 380px) {
+  .clients-grid { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* ── CARDS ───────────────────────────────────────── */
 .card {
   background: var(--bg2); border: 1px solid var(--border);
@@ -146,9 +198,10 @@ main { max-width: 1160px; margin: 0 auto; padding: 32px 24px 60px; }
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.65);
   z-index: 100;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 20px;
+  padding: 20px 12px;
+  overflow-y: auto;
 }
 .modal-overlay.open { display: flex; animation: fadeIn 0.18s ease; }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
