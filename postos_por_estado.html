@@ -690,7 +690,7 @@ function renderCards(){
     const isActive  = !inactiveClients.includes(c.name) && !turningClients.includes(c.name);
     const isTurning = turningClients.includes(c.name);
     const isHand    = inactiveClients.includes(c.name);
-    if(!isHand){ sumActive++; } else sumInactive++;
+    if(isActive){ sumActive++; } else if(isTurning){ sumInactive++; }
     sumImpl += (c.impl||0);
     const cardClass = isActive?'active':isTurning?'turning':'inactive';
     const pillClass = isActive?'pill-active':isTurning?'pill-turning':'pill-inactive';
