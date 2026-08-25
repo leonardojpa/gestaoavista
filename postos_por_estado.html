@@ -519,7 +519,7 @@ const states = [
 ];
 
 const clients = [
-  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:68, pdv:null, impl:56, rollout:10, region:'Sul',
+  {name:'TRAPÉZIO',    state:'PR / SC / SP / RS',      units:68, pdv:null, impl:68, rollout:0, region:'Sul',
    info:{pista:'Ipiranga, Vibra, Shell', conv:'Ipiranga (AMPM), Vibra (BrMania), Shell (Select)', adq:'GetNet'},
    stateDetails:[{s:'Paraná',u:33,r:'Sul'},{s:'Rio Grande do Sul',u:23,r:'Sul'},{s:'Santa Catarina',u:6,r:'Sul'},{s:'São Paulo',u:6,r:'Sudeste'}]},
   {name:'DÉCIO',       state:'GO / MG / BA / SP / TO', units:15, pdv:null, impl:15, rollout:0, region:'Centro-Oeste',
@@ -748,8 +748,8 @@ function renderCards(){
     const cardClass = isActive?'active':isTurning?'turning':'inactive';
     const pillClass = isActive?'pill-active':isTurning?'pill-turning':'pill-inactive';
     const pillLabel = isActive?'Go live':isTurning?'Em implantação':'Handover';
-    const implColor = c.impl>0?'#4ade80':'var(--text)';
-    const rollColor = c.rollout>0?'#fbbf24':'var(--text)';
+    const implColor = c.impl>0?'#7B2FBE':'var(--text)';
+    const rollColor = c.rollout>0?'#F5761A':'var(--text)';
     const div = document.createElement('div');
     div.className = 'client-card ' + cardClass;
     div.innerHTML = `
